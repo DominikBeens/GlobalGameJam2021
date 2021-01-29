@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager> {
 
     private IEnumerator LoadGame() {
         yield return LoadScene(gameScene);
-        BoardManager.Instance.BuildLevel(10, 10, new List<EntityPlacement>());
+        BoardManager.Instance.BuildLevel(10, 10, BoardManager.Instance.Level);
     }
 
     private IEnumerator LoadScene(string sceneName) {

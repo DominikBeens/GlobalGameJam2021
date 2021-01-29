@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoardManager : Singleton<BoardManager>
 {
+    public List<EntityPlacement> Level = new List<EntityPlacement>();
     [SerializeField] private GameObject tile;
     private Tile[,] board;
 
@@ -23,6 +24,11 @@ public class BoardManager : Singleton<BoardManager>
                 board[x, z] = Instantiate(tile).GetComponent<Tile>();
                 board[x, z].gameObject.transform.position = new Vector3(x, 0, z);
             }
+        }
+
+        for (int i = 0; i < entitiesToPlace.Count; i++)
+        {
+            Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation);
         }
     }
 
@@ -59,8 +65,9 @@ public class BoardManager : Singleton<BoardManager>
     }
 }
 
+[System.Serializable]
 public struct EntityPlacement
 {
     public Vector2 position;
-    public Entity MyEntity;
+    public GameObject MyEntity;
 }
