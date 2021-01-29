@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4282265595763480490}
   - component: {fileID: 1192185264517914495}
   - component: {fileID: 2918027139178794523}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 7786711369662635837}
   - component: {fileID: 7295306011247330958}
   - component: {fileID: 6022139687321618459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2151342083613656360}
   - component: {fileID: 930399944411831510}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TILE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2efc2d4a50b4b34ab6abb0c523df7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFlipped: 0
 --- !u!1 &7721579302989857418
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +243,7 @@ GameObject:
   - component: {fileID: 9041656622517423036}
   - component: {fileID: 7041177311482554692}
   - component: {fileID: 3276131041658352042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TILE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
