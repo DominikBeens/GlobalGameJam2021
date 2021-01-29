@@ -2,12 +2,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : Singleton<GameManager> {
 
-    [SerializeField] private string sceneToLoad = "Menu";
-
+    [SerializeField] private string menuScene = "Menu";
     [SerializeField] private string gameScene = "Game";
+
+    private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
 
     protected override void Awake() {
         base.Awake();
@@ -17,15 +19,24 @@ public class GameManager : Singleton<GameManager> {
 
     private IEnumerator Initialize() {
         yield return new WaitForSeconds(0.1f);
-        SceneManager.LoadScene(sceneToLoad);
-        yield return new WaitForSeconds(0.1f);
+        yield return LoadScene(menuScene);
         yield return LoadGame();
     }
 
     private IEnumerator LoadGame() {
-        yield return null;
-        SceneManager.LoadScene(gameScene);
-        yield return new WaitForSeconds(0.1f);
+        yield return LoadScene(gameScene);
         BoardManager.Instance.BuildLevel(10, 10, new List<EntityPlacement>());
+    }
+
+    private IEnumerator LoadScene(string sceneName) {
+        loadOperations.Clear();
+        loadOperations.Add(SceneManager.LoadSceneAsync(sceneName));
+        while (!IsDoneLoading()) {
+            yield return null;
+        }
+    }
+
+    private bool IsDoneLoading() {
+        return loadOperations.All(x => x?.isDone ?? true);
     }
 }
