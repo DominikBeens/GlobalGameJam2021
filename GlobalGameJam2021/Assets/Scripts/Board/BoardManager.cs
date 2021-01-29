@@ -25,10 +25,42 @@ public class BoardManager : Singleton<BoardManager>
             }
         }
     }
+
+    public void FlipBoard()
+    {
+        StartCoroutine(FlipBoardIE());
+    }
+
+    public void TileToFlip(int tilex, int tilez)
+    {
+        board[tilex, tilez].FlipTile();
+    }
+
+    public IEnumerator FlipBoardIE()
+    {
+        yield return new WaitForSeconds(2f);
+
+        for (int x = 0; x < board.GetLength(0); x++)
+        {
+            StartCoroutine(FlipBoardZ(x));
+            yield return new WaitForSeconds(0.4f);
+            board[x, 0].FlipTile();
+        }
+    }
+
+    public IEnumerator FlipBoardZ(int xNumber)
+    {
+        for (int z = 0; z < board.GetLength(1); z++)
+        {
+            StartCoroutine(FlipBoardIE());
+            yield return new WaitForSeconds(0.4f);
+            board[xNumber, z].FlipTile();
+        }
+    }
 }
 
 public struct EntityPlacement
 {
     public Vector2 position;
-
+    public Entity MyEntity;
 }
