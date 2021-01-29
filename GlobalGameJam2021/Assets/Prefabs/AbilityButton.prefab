@@ -251,6 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fccf6ac7719c384488e857b667b1f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  hoverScaleStrength: 0.1
-  hoverScaleDuration: 0.2
+  image: {fileID: 578076600333451568}
+  hoverScaleIn: 1.15
+  hoverScaleInDuration: 0.2
+  hoverScaleOutDuration: 0.15
+  clickScaleStrength: -0.2
+  clickScaleDuration: 0.2

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2641da1017ad047b8d6e8e834f14ec, type: 3}
   m_Name: PlayerAttackActionData
   m_EditorClassIdentifier: 
-  North: 0
-  East: 0
-  South: 0
-  West: 0
+  North: 2
+  East: 2
+  South: 2
+  West: 2
   NorthEast: 0
   SouthEast: 0
   SouthWest: 0

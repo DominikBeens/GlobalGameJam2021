@@ -10,9 +10,12 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
     [SerializeField] private AbilityButton attackButton;
     [SerializeField] private AbilityButton flareButton;
     [Space]
-    [SerializeField] private Sprite moveSprite;
-    [SerializeField] private Sprite attackSprite;
-    [SerializeField] private Sprite flareSprite;
+    [SerializeField] private LayerMask tileLayerMask;
+
+    private AbilityType tileSelectionMode;
+    private Tile selectedTile;
+
+    public enum AbilityType { Undefined, Move, Attack, Flare }
 
     protected override void Awake() {
         base.Awake();
@@ -21,15 +24,21 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
 
-        moveButton.Initialize(moveSprite, OnMoveButtonClicked);
-        attackButton.Initialize(attackSprite, OnAttackButtonClicked);
-        flareButton.Initialize(flareSprite, OnFlareButtonClicked);
+        moveButton.Initialize(AbilityType.Move, OnMoveButtonClicked);
+        attackButton.Initialize(AbilityType.Attack, OnAttackButtonClicked);
+        flareButton.Initialize(AbilityType.Flare, OnFlareButtonClicked);
+
+        Initialize(true);
     }
 
     private void OnDestroy() {
         moveButton.Deinitialize();
         attackButton.Deinitialize();
         flareButton.Deinitialize();
+    }
+
+    private void Update() {
+        HandleTileSelection();
     }
 
     public void Initialize(bool canUseFlare) {
@@ -49,14 +58,23 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
     }
 
     private void OnMoveButtonClicked() {
-
+        tileSelectionMode = AbilityType.Move;
     }
 
     private void OnAttackButtonClicked() {
-
+        tileSelectionMode = AbilityType.Attack;
     }
 
     private void OnFlareButtonClicked() {
+        tileSelectionMode = AbilityType.Flare;
+    }
 
+    private void HandleTileSelection() {
+        if (tileSelectionMode == AbilityType.Undefined) {
+            if (selectedTile) {
+                
+                selectedTile = null;
+            }
+        }
     }
 }
