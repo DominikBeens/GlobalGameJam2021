@@ -13,15 +13,15 @@ public class BoardManager : Singleton<BoardManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    public void BuildLevel(int sizeX, int sizeY, List<EntityPlacement> entitiesToPlace)
+    public void BuildLevel(int sizeX, int sizeZ, List<EntityPlacement> entitiesToPlace)
     {
-        board = new Tile[sizeX, sizeY];
+        board = new Tile[sizeX, sizeZ];
         for (int x = 0; x < sizeX; x++)
         {
-            for (int y = 0; y < sizeY; y++)
+            for (int z = 0; z < sizeZ; z++)
             {
-                board[x, y] = Instantiate(tile).GetComponent<Tile>();
-                board[x, y].gameObject.transform.position = new Vector3(x, y, 0);
+                board[x, z] = Instantiate(tile).GetComponent<Tile>();
+                board[x, z].gameObject.transform.position = new Vector3(x, 0, z);
             }
         }
     }
