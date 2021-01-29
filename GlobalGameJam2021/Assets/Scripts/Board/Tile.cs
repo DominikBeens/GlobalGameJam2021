@@ -4,6 +4,7 @@ using DG.Tweening;
 public class Tile : MonoBehaviour {
 
     [SerializeField] private Transform visual;
+    public Entity myEntity;
     [SerializeField] private Transform randomVisualHolder;
 
     [Header("Flip")]
