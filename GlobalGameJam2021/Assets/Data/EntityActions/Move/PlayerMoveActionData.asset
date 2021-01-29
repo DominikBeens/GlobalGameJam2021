@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cc56eedbeaf7846afa52a0cbdc82ef, type: 3}
   m_Name: PlayerMoveActionData
   m_EditorClassIdentifier: 
-  North: 1
+  North: 3
   East: 1
   South: 1
   West: 1
