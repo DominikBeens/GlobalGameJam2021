@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableActions:
   - {fileID: 11400000, guid: 52dabfddee6ca6a42aa13a3feeef28c8, type: 2}
+  - {fileID: 11400000, guid: 00c6e7188fde0a74ab65421f15ae0137, type: 2}
   visual: {fileID: 3042200504121750775}
 --- !u!1001 &6695661669591402905
 PrefabInstance:

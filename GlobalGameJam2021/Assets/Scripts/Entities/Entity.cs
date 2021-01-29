@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour {
 
-    [SerializeField] private List<EntityActionData> availableActions = new List<EntityActionData>();
+    [SerializeField] protected List<EntityActionData> availableActions = new List<EntityActionData>();
     [Space]
     [SerializeField] private GameObject visual;
 
@@ -18,8 +18,12 @@ public abstract class Entity : MonoBehaviour {
             case MoveActionData x:
                 ExecuteMoveAction(x);
                 break;
+            case AttackActionData x:
+                ExecuteAttackAction(x);
+                break;
         }
     }
 
     protected virtual void ExecuteMoveAction(MoveActionData data) { }
+    protected virtual void ExecuteAttackAction(AttackActionData data) { }
 }
