@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardManager : Singleton<GameManager>
+public class BoardManager : Singleton<BoardManager>
 {
     [SerializeField] private GameObject tile;
     private Tile[,] board;
@@ -11,11 +11,6 @@ public class BoardManager : Singleton<GameManager>
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
-        BuildLevel(10, 10, new List<EntityPlacement>());
     }
 
     public void BuildLevel(int sizeX, int sizeY, List<EntityPlacement> entitiesToPlace)
