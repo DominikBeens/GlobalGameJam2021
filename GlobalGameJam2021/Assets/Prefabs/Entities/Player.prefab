@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableActions:
   - {fileID: 11400000, guid: ebf8eacd9b9e101449a95a79bf0e5848, type: 2}
+  - {fileID: 11400000, guid: 14cc5d8cfbc07dc45b6ae0197899a061, type: 2}
   visual: {fileID: 7321749440649747310}
 --- !u!1 &3513781993549352706
 GameObject:
