@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager> {
@@ -7,11 +8,12 @@ public class GameManager : Singleton<GameManager> {
 
     protected override void Awake() {
         base.Awake();
-        Initialize();
+        DontDestroyOnLoad(gameObject);
+        StartCoroutine(Initialize());
     }
 
-    private void Initialize() {
-        DontDestroyOnLoad(gameObject);
+    private IEnumerator Initialize() {
+        yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(sceneToLoad);
     }
 }
