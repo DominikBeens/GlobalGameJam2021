@@ -71,10 +71,47 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
 
     private void HandleTileSelection() {
         if (tileSelectionMode == AbilityType.Undefined) {
-            if (selectedTile) {
-                
-                selectedTile = null;
+            DeselectTile();
+            return;
+        }
+
+        if (Physics.Raycast(GameManager.Instance.Camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, tileLayerMask)) {
+            Tile tile = hit.transform.GetComponent<Tile>();
+            if (tile) {
+                SelectTile(tile);
+            } else {
+                DeselectTile();
             }
         }
+
+        if (Input.GetMouseButtonDown(0)) {
+            if (selectedTile) {
+                switch (tileSelectionMode) {
+                    case AbilityType.Move:
+                        //BoardManager.Instance.MovePlayer(selectedTile);
+                        break;
+                    case AbilityType.Attack:
+                        //BoardManager.Instance.Attack(selectedTile);
+                        break;
+                    case AbilityType.Flare:
+                        //BoardManager.Instance.UseFlare(selectedTile);
+                        break;
+                }
+                DeselectTile();
+            }
+        }
+    }
+
+    private void SelectTile(Tile tile) {
+        if (selectedTile == tile) { return; }
+        DeselectTile();
+        selectedTile = tile;
+        selectedTile.Hover();
+    }
+
+    private void DeselectTile() {
+        if (!selectedTile) { return; }
+        selectedTile.UnHover();
+        selectedTile = null;
     }
 }

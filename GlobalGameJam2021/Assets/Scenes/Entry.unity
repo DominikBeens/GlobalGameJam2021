@@ -379,6 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuScene: Menu
   gameScene: Game
+  Camera: {fileID: 0}
 --- !u!4 &469334573
 Transform:
   m_ObjectHideFlags: 0
@@ -844,7 +845,7 @@ MonoBehaviour:
   flareButton: {fileID: 912863014}
   tileLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!4 &1196952453
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager> {
 
     private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
 
+    public Camera Camera;
+
     protected override void Awake() {
         base.Awake();
         DontDestroyOnLoad(gameObject);
@@ -25,6 +27,7 @@ public class GameManager : Singleton<GameManager> {
 
     private IEnumerator LoadGame() {
         yield return LoadScene(gameScene);
+        Camera = Camera.main;
         BoardManager.Instance.BuildLevel(10, 10, BoardManager.Instance.Level);
     }
 

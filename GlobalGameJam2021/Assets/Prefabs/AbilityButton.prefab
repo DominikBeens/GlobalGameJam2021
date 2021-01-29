@@ -252,6 +252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 578076600333451568}
+  moveSprite: {fileID: 21300000, guid: 45e6cfe4bb71ea94c812b99b78049d0d, type: 3}
+  attackSprite: {fileID: 21300000, guid: d004f866552fdb34f9fc22fdbd6a0f92, type: 3}
+  flareSprite: {fileID: 21300000, guid: 4a613028ab4b430438fe862693d33965, type: 3}
   hoverScaleIn: 1.15
   hoverScaleInDuration: 0.2
   hoverScaleOutDuration: 0.15

@@ -8,10 +8,17 @@ public class BoardManager : Singleton<BoardManager>
     [SerializeField] private GameObject tile;
     private Tile[,] board;
     public PlayerEntity testTest;
+
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.T)) {
+            FlipBoard();
+        }
     }
 
     public void BuildLevel(int sizeX, int sizeZ, List<EntityPlacement> entitiesToPlace)
@@ -44,13 +51,10 @@ public class BoardManager : Singleton<BoardManager>
 
     public IEnumerator FlipBoardIE()
     {
-        yield return new WaitForSeconds(2f);
-
         for (int x = 0; x < board.GetLength(0); x++)
         {
             StartCoroutine(FlipBoardZ(x));
-            yield return new WaitForSeconds(0.4f);
-            board[x, 0].FlipTile();
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
@@ -58,8 +62,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         for (int z = 0; z < board.GetLength(1); z++)
         {
-            StartCoroutine(FlipBoardIE());
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.05f);
             board[xNumber, z].FlipTile();
         }
     }
