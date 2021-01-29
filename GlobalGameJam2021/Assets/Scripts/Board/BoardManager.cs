@@ -28,8 +28,7 @@ public class BoardManager : Singleton<BoardManager>
 
         for (int i = 0; i < entitiesToPlace.Count; i++)
         {
-            testTest = Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation).GetComponent<PlayerEntity>();
-            SelectMoveSpots(testTest);
+            Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation);
         }
     }
 
@@ -84,8 +83,6 @@ public class BoardManager : Singleton<BoardManager>
             Vector3 pos = (currentPos - directionPos);
             Vector2 dir = new Vector2(directionPos.x, directionPos.z);
             SelectTile(dir - new Vector2(pos.x, pos.z) * i);
-
-
         }
     }
 
