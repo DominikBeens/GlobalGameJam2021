@@ -11,4 +11,14 @@ public class Tile : MonoBehaviour
         isFlipped = !isFlipped;
         gameObject.transform.localEulerAngles = new Vector3(0, 0, gameObject.transform.localEulerAngles.x + 180); //Test
     }
+
+    public void Hover()
+    {
+        transform.position += new Vector3(0,0.1f,0);
+    }
+
+    public void UnHover()
+    {
+        transform.position += new Vector3(0, -0.1f, 0);
+    }
 }
