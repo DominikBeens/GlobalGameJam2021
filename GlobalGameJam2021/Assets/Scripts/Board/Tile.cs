@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class Tile : MonoBehaviour {
 
+    [SerializeField] private Transform rootTransform;
     [SerializeField] private Transform rotationTransform;
     [SerializeField] private Transform hoverTransform;
     [SerializeField] private Transform highlightTransform;
@@ -27,7 +28,7 @@ public class Tile : MonoBehaviour {
 
     [Header("Entity Land")]
     [SerializeField] private float landDuration = 0.2f;
-    [SerializeField] private float landYAmount = 0.25f;
+    [SerializeField] private float landYStrength = 0.25f;
 
     private bool isFlipped = false;
     private MaterialPropertyBlock tileBasePropertyBlock;
@@ -50,6 +51,8 @@ public class Tile : MonoBehaviour {
 
     public void AddEntity(Entity entity) {
         myEntity = entity;
+        rootTransform.DOKill(true);
+        rootTransform.DOPunchPosition(Vector3.down * landYStrength, landDuration).SetEase(Ease.OutQuint);
     }
 
     public void RemoveEntity() {

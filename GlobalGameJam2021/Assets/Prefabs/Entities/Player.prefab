@@ -24,6 +24,9 @@ MonoBehaviour:
   SouthEast: {fileID: 4630129015606585498}
   SouthWest: {fileID: 1200541857842286770}
   NorthWest: {fileID: 6691936836461088705}
+  jumpHeight: 2
+  jumpDuration: 0.5
+  jumpEase: 2
 --- !u!1 &3513781993549352706
 GameObject:
   m_ObjectHideFlags: 0

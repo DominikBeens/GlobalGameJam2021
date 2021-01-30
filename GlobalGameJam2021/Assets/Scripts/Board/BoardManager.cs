@@ -21,6 +21,10 @@ public class BoardManager : Singleton<BoardManager>
         {
             FlipBoard();
         }
+        if (Input.GetKeyDown(KeyCode.R)) 
+        {
+            myPlayerEntity.MoveToTile(GetTile(myPlayerEntity.transform.position));
+        }
     }
 
     public void BuildLevel(int sizeX, int sizeZ, List<EntityPlacement> entitiesToPlace)

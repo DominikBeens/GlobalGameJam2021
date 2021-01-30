@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public abstract class Entity : MonoBehaviour {
 
@@ -17,5 +18,13 @@ public abstract class Entity : MonoBehaviour {
     public Transform SouthWest;
     public Transform NorthWest;
 
-    public virtual void MoveToTile(Tile tile) { }
+    [Header("Move")]
+    [SerializeField] protected float jumpHeight = 1.5f;
+    [SerializeField] protected float jumpDuration = 0.4f;
+    [SerializeField] protected Ease jumpEase;
+
+    public virtual void MoveToTile(Tile tile) {
+        Tile currentTile = BoardManager.Instance.GetTile(transform.position);
+        currentTile.RemoveEntity();
+    }
 }
