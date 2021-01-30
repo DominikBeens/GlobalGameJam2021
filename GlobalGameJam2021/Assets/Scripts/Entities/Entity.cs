@@ -21,7 +21,12 @@ public abstract class Entity : MonoBehaviour {
     [Header("Move")]
     [SerializeField] protected float jumpHeight = 1.5f;
     [SerializeField] protected float jumpDuration = 0.4f;
+    [SerializeField] protected float bomFallDuration = 0.4f;
     [SerializeField] protected Ease jumpEase;
+    [SerializeField] protected Ease bomEase;
+    [SerializeField] protected GameObject bom;
+
+    public bool isDestroyed;
 
     public TileActionData MoveActionData => moveActionData;
     public TileActionData AttackActionData => attackActionData;
@@ -30,4 +35,17 @@ public abstract class Entity : MonoBehaviour {
         Tile currentTile = BoardManager.Instance.GetTile(transform.position);
         currentTile.RemoveEntity();
     }
+    protected void GetDestroyed()
+    {
+        Tile tile = BoardManager.Instance.GetTile(transform.position);
+
+        Instantiate(bom, transform.position + new Vector3(0,8,0), transform.rotation);
+        transform.DOMoveY(0, bomFallDuration).SetEase(bomEase).OnComplete(() =>
+        {
+            transform.SetParent(tile.EntityHolder);
+            BoardManager.Instance.GetTile(transform.position).BounceArea();
+            BoardManager.Instance.TileToFlip(transform.position);
+        });
+    }
+
 }

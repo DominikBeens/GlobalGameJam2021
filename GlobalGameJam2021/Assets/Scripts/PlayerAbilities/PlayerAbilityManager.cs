@@ -60,17 +60,19 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
     }
 
     private void OnMoveButtonClicked() {
+        BoardManager.Instance.DeSelectSpots();
         BoardManager.Instance.SelectPlayerMoveSpots();
         tileSelectionMode = AbilityType.Move;
     }
 
     private void OnAttackButtonClicked() {
-        BoardManager.Instance.DeSelectMoveSpots();
+        BoardManager.Instance.DeSelectSpots();
+        BoardManager.Instance.SelectPlayerAttackSpots();
         tileSelectionMode = AbilityType.Attack;
     }
 
     private void OnFlareButtonClicked() {
-        BoardManager.Instance.DeSelectMoveSpots();
+        BoardManager.Instance.DeSelectSpots();
         tileSelectionMode = AbilityType.Flare;
     }
 
@@ -98,7 +100,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
                         BoardManager.Instance.MovePlayer(selectedTile);
                         break;
                     case AbilityType.Attack:
-                        //BoardManager.Instance.Attack(selectedTile);
+                        BoardManager.Instance.PlayerAttack(selectedTile);
                         break;
                     case AbilityType.Flare:
                         //BoardManager.Instance.UseFlare(selectedTile);

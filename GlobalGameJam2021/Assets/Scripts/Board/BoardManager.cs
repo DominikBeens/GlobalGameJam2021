@@ -45,6 +45,7 @@ public class BoardManager : Singleton<BoardManager>
             }
         }
 
+        enimiesOnBoard.Clear();
 
         for (int i = 0; i < currentEntities.Count; i++)
         {
@@ -67,9 +68,11 @@ public class BoardManager : Singleton<BoardManager>
     }
 
     #region Flip Tiles
-    public void TileToFlip(int tilex, int tilez)
+    public void TileToFlip(Vector3 position)
     {
-        board[tilex, tilez].FlipTile();
+        int xPos = Mathf.RoundToInt(position.x);
+        int yPos = Mathf.RoundToInt(position.z);
+        board[xPos, yPos].FlipTile();
     }
 
     public void FlipBoard()
@@ -104,9 +107,26 @@ public class BoardManager : Singleton<BoardManager>
     {
         if (HighlightedTiles.Count > 0)
         {
-            DeSelectMoveSpots();
+            DeSelectSpots();
         }
+
         HighlightedTiles = SelectTileSpots(myPlayerEntity.MoveActionData, myPlayerEntity);
+
+        for (int i = 0; i < HighlightedTiles.Count; i++)
+        {
+            HighlightedTiles[i].Highlight();
+        }
+    }
+
+    public void SelectPlayerAttackSpots()
+    {
+        if (HighlightedTiles.Count > 0)
+        {
+            DeSelectSpots();
+        }
+
+        HighlightedTiles = SelectTileSpots(myPlayerEntity.AttackActionData, myPlayerEntity);
+
         for (int i = 0; i < HighlightedTiles.Count; i++)
         {
             HighlightedTiles[i].Highlight();
@@ -124,8 +144,10 @@ public class BoardManager : Singleton<BoardManager>
         newTiles.AddRange(SelectDirection(toCheck.NorthWest, newEntity.gameObject.transform.position, newEntity.NorthWest.position));
         newTiles.AddRange(SelectDirection(toCheck.SouthEast, newEntity.gameObject.transform.position, newEntity.SouthEast.position));
         newTiles.AddRange(SelectDirection(toCheck.SouthWest, newEntity.gameObject.transform.position, newEntity.SouthWest.position));
-        for (int i = newTiles.Count - 1; i >= 0; i--) {
-            if (newTiles[i] == null) {
+        for (int i = newTiles.Count - 1; i >= 0; i--)
+        {
+            if (newTiles[i] == null)
+            {
                 newTiles.RemoveAt(i);
             }
         }
@@ -160,7 +182,7 @@ public class BoardManager : Singleton<BoardManager>
         return null;
     }
 
-    public void DeSelectMoveSpots()
+    public void DeSelectSpots()
     {
         for (int i = 0; i < HighlightedTiles.Count; i++)
         {
@@ -190,10 +212,23 @@ public class BoardManager : Singleton<BoardManager>
     {
         if (HighlightedTiles.Count > 0)
         {
-            DeSelectMoveSpots();
+            DeSelectSpots();
         }
         toMove = myPlayerEntity;
         this.moveToTile = moveToTile;
+    }
+
+    public void PlayerAttack(Tile toAttack)
+    {
+        if (HighlightedTiles.Count > 0)
+        {
+            DeSelectSpots();
+        }
+
+        if (toAttack.Entity != null)
+        {
+            toAttack.Entity.isDestroyed = true;
+        }
     }
 
 
@@ -208,7 +243,8 @@ public class BoardManager : Singleton<BoardManager>
 
     public IEnumerator PlayBoardActions()
     {
-        if (moveToTile.Entity && moveToTile.Entity is EnemyEntity) {
+        if (moveToTile != null && moveToTile.Entity && moveToTile.Entity is EnemyEntity)
+        {
             GameStateMachine.Instance.EnterState<GameOverState>();
             yield break;
         }
@@ -225,7 +261,7 @@ public class BoardManager : Singleton<BoardManager>
         foreach (EnemyEntity enemy in enimiesOnBoard)
         {
             enemy.ExecuteAction();
-            yield return new WaitForSeconds(Random.Range(0.2f,0.5f));
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
         }
     }
 }
