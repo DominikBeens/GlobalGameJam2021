@@ -45,7 +45,6 @@ public class BoardManager : Singleton<BoardManager>
             }
         }
 
-
         for (int i = 0; i < currentEntities.Count; i++)
         {
             int tilePlaceX = Mathf.RoundToInt(currentEntities[i].position.x);
