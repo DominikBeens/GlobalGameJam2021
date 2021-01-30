@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager> {
     private IEnumerator LoadGame() {
         yield return LoadScene(gameScene);
         Camera = Camera.main;
-        BoardManager.Instance.BuildLevel(0); //Level needs to be chosen!!!
+        BoardManager.Instance.BuildLevel(2); //Level needs to be chosen!!!
     }
 
     private IEnumerator LoadScene(string sceneName) {
