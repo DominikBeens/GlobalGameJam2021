@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
+public class PlayerAbilityManager : Singleton<PlayerAbilityManager>
+{
 
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private CanvasGroup buttonCanvasGroup;
@@ -17,7 +18,8 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
 
     public enum AbilityType { Undefined, Move, Attack, Flare }
 
-    protected override void Awake() {
+    protected override void Awake()
+    {
         base.Awake();
         DontDestroyOnLoad(gameObject);
 
@@ -31,62 +33,82 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
         Initialize(true);
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         moveButton.Deinitialize();
         attackButton.Deinitialize();
         flareButton.Deinitialize();
     }
 
-    private void Update() {
+    private void Update()
+    {
         HandleTileSelection();
     }
 
-    public void Initialize(bool canUseFlare) {
+    public void Initialize(bool canUseFlare)
+    {
         canvasGroup.DOFade(1f, 0.2f);
         canvasGroup.interactable = true;
         flareButton.gameObject.SetActive(canUseFlare);
     }
 
-    public void Deinitialize() {
+    public void Deinitialize()
+    {
         canvasGroup.interactable = false;
         canvasGroup.DOFade(0f, 0.1f);
     }
 
-    public void ToggleButtonInteractability(bool state) {
+    public void ToggleButtonInteractability(bool state)
+    {
         buttonCanvasGroup.DOFade(state ? 1f : 0.8f, 0.1f);
         buttonCanvasGroup.interactable = state;
     }
 
-    private void OnMoveButtonClicked() {
+    private void OnMoveButtonClicked()
+    {
+        BoardManager.Instance.SelectMoveSpots();
         tileSelectionMode = AbilityType.Move;
     }
 
-    private void OnAttackButtonClicked() {
+    private void OnAttackButtonClicked()
+    {
+        BoardManager.Instance.DeSelectMoveSpots();
         tileSelectionMode = AbilityType.Attack;
     }
 
-    private void OnFlareButtonClicked() {
+    private void OnFlareButtonClicked()
+    {
+        BoardManager.Instance.DeSelectMoveSpots();
         tileSelectionMode = AbilityType.Flare;
     }
 
-    private void HandleTileSelection() {
-        if (tileSelectionMode == AbilityType.Undefined) {
+    private void HandleTileSelection()
+    {
+        if (tileSelectionMode == AbilityType.Undefined)
+        {
             DeselectTile();
             return;
         }
 
-        if (Physics.Raycast(GameManager.Instance.Camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, tileLayerMask)) {
+        if (Physics.Raycast(GameManager.Instance.Camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, tileLayerMask))
+        {
             Tile tile = hit.transform.GetComponent<Tile>();
-            if (tile) {
+            if (tile)
+            {
                 SelectTile(tile);
-            } else {
+            }
+            else
+            {
                 DeselectTile();
             }
         }
 
-        if (Input.GetMouseButtonDown(0)) {
-            if (selectedTile) {
-                switch (tileSelectionMode) {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (selectedTile)
+            {
+                switch (tileSelectionMode)
+                {
                     case AbilityType.Move:
                         //BoardManager.Instance.MovePlayer(selectedTile);
                         break;
@@ -97,20 +119,24 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
                         //BoardManager.Instance.UseFlare(selectedTile);
                         break;
                 }
+                tileSelectionMode = AbilityType.Undefined;
                 DeselectTile();
             }
         }
     }
 
-    private void SelectTile(Tile tile) {
+    private void SelectTile(Tile tile)
+    {
         if (selectedTile == tile) { return; }
         DeselectTile();
         selectedTile = tile;
         selectedTile.Hover();
     }
 
-    private void DeselectTile() {
+    private void DeselectTile()
+    {
         if (!selectedTile) { return; }
+        BoardManager.Instance.DeSelectMoveSpots();
         selectedTile.UnHover();
         selectedTile = null;
     }

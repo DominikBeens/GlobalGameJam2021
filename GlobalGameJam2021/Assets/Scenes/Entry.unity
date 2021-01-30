@@ -427,8 +427,10 @@ MonoBehaviour:
   - position: {x: 3, y: 0, z: 3}
     MyEntity: {fileID: 7122922860483416908, guid: 1354a5cfd0e03b446994dabb65a69f9b,
       type: 3}
+  - position: {x: 3, y: 0, z: 4}
+    MyEntity: {fileID: 7311442108766509717, guid: 2c9050503c634964e95d017f2e2fe655,
+      type: 3}
   tile: {fileID: 6258955875518072579, guid: 38ce03c31129ff94092851a8ad908921, type: 3}
-  testTest: {fileID: 0}
 --- !u!4 &756249807
 Transform:
   m_ObjectHideFlags: 0

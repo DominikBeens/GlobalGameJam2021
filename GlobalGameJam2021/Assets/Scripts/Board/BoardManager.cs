@@ -6,8 +6,8 @@ public class BoardManager : Singleton<BoardManager>
 {
     public List<EntityPlacement> Level = new List<EntityPlacement>();
     [SerializeField] private GameObject tile;
+    private PlayerEntity myPlayerEntity;
     private Tile[,] board;
-    public PlayerEntity testTest;
 
     protected override void Awake()
     {
@@ -15,8 +15,10 @@ public class BoardManager : Singleton<BoardManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.T)) {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
             FlipBoard();
         }
     }
@@ -35,7 +37,14 @@ public class BoardManager : Singleton<BoardManager>
 
         for (int i = 0; i < entitiesToPlace.Count; i++)
         {
-            Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation);
+            Entity newEntity = Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation).GetComponent<Entity>();
+
+            board[Mathf.RoundToInt(entitiesToPlace[i].position.x), Mathf.RoundToInt(entitiesToPlace[i].position.z)].myEntity = newEntity;
+
+            if (newEntity is PlayerEntity playerEntity)
+            {
+                myPlayerEntity = playerEntity;
+            }
         }
     }
 
@@ -67,16 +76,16 @@ public class BoardManager : Singleton<BoardManager>
         }
     }
 
-    public void SelectMoveSpots(PlayerEntity toUse)
+    public void SelectMoveSpots()
     {
-        SelectDirection(toUse.MoveActionData.North, toUse.gameObject.transform.position, toUse.North.position);
-        SelectDirection(toUse.MoveActionData.East, toUse.gameObject.transform.position, toUse.East.position);
-        SelectDirection(toUse.MoveActionData.South, toUse.gameObject.transform.position, toUse.South.position);
-        SelectDirection(toUse.MoveActionData.West, toUse.gameObject.transform.position, toUse.West.position);
-        SelectDirection(toUse.MoveActionData.NorthEast, toUse.gameObject.transform.position, toUse.NorthEast.position);
-        SelectDirection(toUse.MoveActionData.NorthWest, toUse.gameObject.transform.position, toUse.NorthWest.position);
-        SelectDirection(toUse.MoveActionData.SouthEast, toUse.gameObject.transform.position, toUse.SouthEast.position);
-        SelectDirection(toUse.MoveActionData.SouthWest, toUse.gameObject.transform.position, toUse.SouthWest.position);
+        SelectDirection(myPlayerEntity.MoveActionData.North, myPlayerEntity.gameObject.transform.position, myPlayerEntity.North.position);
+        SelectDirection(myPlayerEntity.MoveActionData.East, myPlayerEntity.gameObject.transform.position, myPlayerEntity.East.position);
+        SelectDirection(myPlayerEntity.MoveActionData.South, myPlayerEntity.gameObject.transform.position, myPlayerEntity.South.position);
+        SelectDirection(myPlayerEntity.MoveActionData.West, myPlayerEntity.gameObject.transform.position, myPlayerEntity.West.position);
+        SelectDirection(myPlayerEntity.MoveActionData.NorthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthEast.position);
+        SelectDirection(myPlayerEntity.MoveActionData.NorthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthWest.position);
+        SelectDirection(myPlayerEntity.MoveActionData.SouthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthEast.position);
+        SelectDirection(myPlayerEntity.MoveActionData.SouthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthWest.position);
     }
 
     private void SelectDirection(int Amount, Vector3 currentPos, Vector3 directionPos)
@@ -95,7 +104,45 @@ public class BoardManager : Singleton<BoardManager>
         int y = Mathf.RoundToInt(toSelect.y);
         if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
         {
-            board[x, y].gameObject.transform.position += new Vector3(0, 0.2f, 0);
+            if (board[x, y].myEntity == null || !(board[x, y].myEntity is StaticEntity))
+            {
+                board[x, y].Highlight();
+            }
+        }
+    }
+
+    public void DeSelectMoveSpots()
+    {
+        DeSelectDirection(myPlayerEntity.MoveActionData.North, myPlayerEntity.gameObject.transform.position, myPlayerEntity.North.position);
+        DeSelectDirection(myPlayerEntity.MoveActionData.East, myPlayerEntity.gameObject.transform.position, myPlayerEntity.East.position);
+        DeSelectDirection(myPlayerEntity.MoveActionData.South, myPlayerEntity.gameObject.transform.position, myPlayerEntity.South.position);
+        DeSelectDirection(myPlayerEntity.MoveActionData.West, myPlayerEntity.gameObject.transform.position, myPlayerEntity.West.position);
+        DeSelectDirection(myPlayerEntity.MoveActionData.NorthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthEast.position);
+        DeSelectDirection(myPlayerEntity.MoveActionData.NorthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthWest.position);
+        DeSelectDirection(myPlayerEntity.MoveActionData.SouthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthEast.position);
+        DeSelectDirection(myPlayerEntity.MoveActionData.SouthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthWest.position);
+    }
+
+    private void DeSelectDirection(int Amount, Vector3 currentPos, Vector3 directionPos)
+    {
+        for (int i = 0; i < Amount; i++)
+        {
+            Vector3 pos = (currentPos - directionPos);
+            Vector2 dir = new Vector2(directionPos.x, directionPos.z);
+            DeSelectTile(dir - new Vector2(pos.x, pos.z) * i);
+        }
+    }
+
+    private void DeSelectTile(Vector2 toSelect)
+    {
+        int x = Mathf.RoundToInt(toSelect.x);
+        int y = Mathf.RoundToInt(toSelect.y);
+        if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
+        {
+            if (board[x, y].myEntity == null || !(board[x, y].myEntity is StaticEntity))
+            {
+                board[x, y].UnHighlight();
+            }
         }
     }
 
