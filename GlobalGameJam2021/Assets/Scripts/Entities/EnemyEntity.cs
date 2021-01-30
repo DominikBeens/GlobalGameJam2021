@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 public class EnemyEntity : Entity {
 
@@ -29,9 +30,10 @@ public class EnemyEntity : Entity {
 
     public override void MoveToTile(Tile tile) {
         base.MoveToTile(tile);
-        transform.position = tile.EntityHolder.position;
-        transform.SetParent(tile.EntityHolder);
         tile.AddEntity(this);
-        tile.BounceArea();
+        transform.DOJump(tile.EntityHolder.position, jumpHeight, 1, jumpDuration).SetEase(jumpEase).OnComplete(() => {
+            transform.SetParent(tile.EntityHolder);
+            tile.BounceArea();
+        });
     }
 }

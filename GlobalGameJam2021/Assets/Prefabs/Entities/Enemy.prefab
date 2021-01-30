@@ -25,7 +25,7 @@ MonoBehaviour:
   NorthWest: {fileID: 1403588678277292120}
   jumpHeight: 1.5
   jumpDuration: 0.4
-  jumpEase: 0
+  jumpEase: 2
 --- !u!1001 &6695661669591402905
 PrefabInstance:
   m_ObjectHideFlags: 0
