@@ -175,8 +175,6 @@ public class BoardManager : Singleton<BoardManager>
 
         if (newMoveToTile.myEntity == null)
         {
-            //board[Mathf.RoundToInt(newToMove.transform.position.x), Mathf.RoundToInt(newToMove.transform.position.z)].RemoveEntity();
-            newToMove.MoveToTile(newMoveToTile);
             return true;
         }
         else
