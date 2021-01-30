@@ -161,7 +161,10 @@ public class BoardManager : Singleton<BoardManager>
 
     public void MoveEntity(Tile moveToTile , Entity toMove)
     {
-
+        board[Mathf.RoundToInt(toMove.transform.position.x), Mathf.RoundToInt(toMove.transform.position.z)].myEntity = null;
+        toMove.gameObject.transform.SetParent(moveToTile.gameObject.transform);
+        toMove.transform.position = moveToTile.transform.position;
+        moveToTile.myEntity = toMove;
     }
 }
 

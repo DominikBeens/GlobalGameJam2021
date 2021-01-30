@@ -110,7 +110,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager>
                 switch (tileSelectionMode)
                 {
                     case AbilityType.Move:
-                        //BoardManager.Instance.MovePlayer(selectedTile);
+                        BoardManager.Instance.MovePlayer(selectedTile);
                         break;
                     case AbilityType.Attack:
                         //BoardManager.Instance.Attack(selectedTile);
