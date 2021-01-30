@@ -15,10 +15,8 @@ public class MonoStateMachine : MonoState {
         foreach (MonoState state in states) {
             state.gameObject.SetActive(true);
             state.Initialize(this);
-            if (state == defaultState) {
+            if (defaultState && state == defaultState) {
                 EnterState(state);
-            } else {
-                state.Exit();
             }
         }
 

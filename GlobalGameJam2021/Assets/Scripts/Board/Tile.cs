@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
 
@@ -51,8 +52,27 @@ public class Tile : MonoBehaviour {
 
     public void AddEntity(Entity entity) {
         myEntity = entity;
-        rootTransform.DOKill(true);
-        rootTransform.DOPunchPosition(Vector3.down * landYStrength, landDuration).SetEase(Ease.OutQuint);
+        BounceDown(1f);
+        List<Tile> sideTiles = new List<Tile>() {
+            BoardManager.Instance.GetTile(myEntity.North.position),
+            BoardManager.Instance.GetTile(myEntity.East.position),
+            BoardManager.Instance.GetTile(myEntity.South.position),
+            BoardManager.Instance.GetTile(myEntity.West.position),
+        };
+        List<Tile> cornerTiles = new List<Tile>() {
+            BoardManager.Instance.GetTile(myEntity.NorthEast.position),
+            BoardManager.Instance.GetTile(myEntity.NorthWest.position),
+            BoardManager.Instance.GetTile(myEntity.SouthEast.position),
+            BoardManager.Instance.GetTile(myEntity.SouthWest.position),
+        };
+        foreach (Tile tile in sideTiles) {
+            if (!tile) { continue; }
+            tile.BounceDown(0.2f, 0.1f);
+        }
+        foreach (Tile tile in cornerTiles) {
+            if (!tile) { continue; }
+            tile.BounceDown(-0.05f, 0.05f);
+        }
     }
 
     public void RemoveEntity() {
@@ -89,6 +109,11 @@ public class Tile : MonoBehaviour {
         highlightTransform.DOKill();
         highlightTransform.DOLocalMoveY(0f, highlightOutDuration);
         TweenTileBaseEmission(defaultEmissionColor, highlightOutDuration);
+    }
+
+    public void BounceDown(float strength = 1f, float delay = 0f) {
+        rootTransform.DOKill(true);
+        rootTransform.DOPunchPosition(Vector3.down * (landYStrength * strength), landDuration).SetEase(Ease.OutQuint).SetDelay(delay);
     }
 
     private void TweenTileBaseEmission(Color color, float duration) {

@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
+
+    public event Action OnAbilitySelected = delegate { };
 
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private CanvasGroup buttonCanvasGroup;
@@ -27,8 +30,6 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
         moveButton.Initialize(AbilityType.Move, OnMoveButtonClicked);
         attackButton.Initialize(AbilityType.Attack, OnAttackButtonClicked);
         flareButton.Initialize(AbilityType.Flare, OnFlareButtonClicked);
-
-        Initialize(true);
     }
 
     private void OnDestroy() {
@@ -53,12 +54,13 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
     }
 
     public void ToggleButtonInteractability(bool state) {
-        buttonCanvasGroup.DOFade(state ? 1f : 0.8f, 0.1f);
+        buttonCanvasGroup.DOFade(state ? 1f : 0.5f, 0.1f);
         buttonCanvasGroup.interactable = state;
+        buttonCanvasGroup.blocksRaycasts = state;
     }
 
     private void OnMoveButtonClicked() {
-        BoardManager.Instance.SelectMoveSpots();
+        BoardManager.Instance.SelectPlayerMoveSpots();
         tileSelectionMode = AbilityType.Move;
     }
 
@@ -102,6 +104,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
                         //BoardManager.Instance.UseFlare(selectedTile);
                         break;
                 }
+                OnAbilitySelected();
                 tileSelectionMode = AbilityType.Undefined;
                 DeselectTile();
             }
