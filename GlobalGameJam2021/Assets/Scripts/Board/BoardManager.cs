@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardManager : Singleton<BoardManager>
 {
-    public List<EntityPlacement> Level = new List<EntityPlacement>();
+    [SerializeField] private List<EntityPlacement> Level = new List<EntityPlacement>();
     [SerializeField] private GameObject tile;
     private PlayerEntity myPlayerEntity;
     private Tile[,] board;
@@ -42,9 +42,9 @@ public class BoardManager : Singleton<BoardManager>
         {
             int tilePlaceX = Mathf.RoundToInt(entitiesToPlace[i].position.x);
             int tilePlaceY = Mathf.RoundToInt(entitiesToPlace[i].position.z);
-            Entity newEntity = Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation, board[tilePlaceX, tilePlaceY].visual).GetComponent<Entity>();
+            Entity newEntity = Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation, board[tilePlaceX, tilePlaceY].EntityHolder).GetComponent<Entity>();
 
-            board[tilePlaceX, tilePlaceY].myEntity = newEntity;
+            board[tilePlaceX, tilePlaceY].AddEntity(newEntity);
 
             if (newEntity is PlayerEntity playerEntity)
             {
@@ -62,18 +62,19 @@ public class BoardManager : Singleton<BoardManager>
     public void FlipBoard()
     {
         StartCoroutine(FlipBoardIE());
+        FlipActions();
     }
 
-    public IEnumerator FlipBoardIE()
+    private IEnumerator FlipBoardIE()
     {
         for (int x = 0; x < board.GetLength(0); x++)
         {
-            StartCoroutine(FlipBoardZ(x));
+            StartCoroutine(FlipBoardIEDiaginal(x));
             yield return new WaitForSeconds(0.05f);
         }
     }
 
-    public IEnumerator FlipBoardZ(int xNumber)
+    private IEnumerator FlipBoardIEDiaginal(int xNumber)
     {
         for (int z = 0; z < board.GetLength(1); z++)
         {
@@ -150,14 +151,27 @@ public class BoardManager : Singleton<BoardManager>
     }
 
 
+    private Entity toMove;
+    private Tile moveToTile;
 
-    public bool MoveEntity(Tile moveToTile, Entity toMove)
+    public void FlipActions()
     {
-        if (moveToTile.myEntity == null)
+        if (toMove != null && moveToTile != null)
         {
-            board[Mathf.RoundToInt(toMove.transform.position.x), Mathf.RoundToInt(toMove.transform.position.z)].myEntity = null;
-            moveToTile.myEntity = toMove;
+            Debug.LogError("MoveVisual");
             toMove.MoveToTile(moveToTile);
+        }
+    }
+
+    public bool MoveEntity(Tile newMoveToTile, Entity newToMove)
+    {
+        toMove = newToMove;
+        moveToTile = newMoveToTile;
+
+        if (newMoveToTile.myEntity == null)
+        {
+            board[Mathf.RoundToInt(newToMove.transform.position.x), Mathf.RoundToInt(newToMove.transform.position.z)].RemoveEntity();
+            newToMove.MoveToTile(newMoveToTile);
             return true;
         }
         else
