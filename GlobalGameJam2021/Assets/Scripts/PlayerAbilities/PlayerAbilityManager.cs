@@ -26,6 +26,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
 
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
         moveButton.Initialize(AbilityType.Move, OnMoveButtonClicked);
         attackButton.Initialize(AbilityType.Attack, OnAttackButtonClicked);
@@ -43,14 +44,18 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
     }
 
     public void Initialize(bool canUseFlare) {
-        canvasGroup.DOFade(1f, 0.2f);
-        canvasGroup.interactable = true;
+        ToggleCanvas(true, 0.2f);
         flareButton.gameObject.SetActive(canUseFlare);
     }
 
     public void Deinitialize() {
-        canvasGroup.interactable = false;
-        canvasGroup.DOFade(0f, 0.1f);
+        ToggleCanvas(false, 0.1f);
+    }
+
+    private void ToggleCanvas(bool state, float duration) {
+        canvasGroup.DOFade(state ? 1f : 0f, duration);
+        canvasGroup.interactable = state;
+        canvasGroup.blocksRaycasts = state;
     }
 
     public void ToggleButtonInteractability(bool state) {

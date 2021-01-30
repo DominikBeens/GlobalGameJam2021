@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStartState : MonoState {
@@ -12,6 +11,9 @@ public class GameStartState : MonoState {
     public override void Tick() { }
 
     private IEnumerator StartRoutine() {
+        GameStateMachine.Instance.ToggleGameCanvas(true, 0.4f);
+        GameStateMachine.Instance.ToggleGameOverCanvas(false, 0f);
+
         PlayerAbilityManager.Instance.Initialize(true);
         PlayerAbilityManager.Instance.ToggleButtonInteractability(false);
 

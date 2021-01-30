@@ -64,6 +64,8 @@ public class Tile : MonoBehaviour {
         Vector3 rotation = new Vector3(0, 0, gameObject.transform.localEulerAngles.x - 180);
         rotationTransform.DOKill(true);
         rotationTransform.DOLocalRotate(rotation, flipDuration, RotateMode.LocalAxisAdd).SetEase(Ease.OutBack);
+
+        EntityHolder.DOScaleY(isFlipped ? 0f : 1f, flipDuration / 6).SetDelay(isFlipped ? flipDuration / 4 : 0f);
     }
 
     public void Hover() {

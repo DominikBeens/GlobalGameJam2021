@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager> {
     [SerializeField] private string gameScene = "Game";
 
     private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
+    private int currentLevel;
 
     public Camera Camera;
 
@@ -21,22 +22,35 @@ public class GameManager : Singleton<GameManager> {
 
     private IEnumerator Initialize() {
         yield return new WaitForSeconds(0.1f);
-        yield return LoadScene(menuScene);
-        yield return LoadGame();
+        yield return LoadMenuRoutine();
+        yield return LoadLevelRoutine(2);
     }
 
-    private IEnumerator LoadGame() {
-        yield return LoadScene(gameScene);
+    private IEnumerator LoadMenuRoutine() {
+        yield return LoadSceneRoutine(menuScene);
+    }
+
+    private IEnumerator LoadLevelRoutine(int level) { //Level needs to be chosen!!!11!
+        currentLevel = level;
+        yield return LoadSceneRoutine(gameScene);
         Camera = Camera.main;
-        BoardManager.Instance.BuildLevel(2); //Level needs to be chosen!!!11!
+        BoardManager.Instance.BuildLevel(level);
     }
 
-    private IEnumerator LoadScene(string sceneName) {
+    private IEnumerator LoadSceneRoutine(string sceneName) {
         loadOperations.Clear();
         loadOperations.Add(SceneManager.LoadSceneAsync(sceneName));
         while (!IsDoneLoading()) {
             yield return null;
         }
+    }
+
+    public void RestartLevel() {
+        StartCoroutine(LoadLevelRoutine(currentLevel));
+    }
+
+    public void LoadMenu() {
+        StartCoroutine(LoadMenuRoutine());
     }
 
     private bool IsDoneLoading() {
