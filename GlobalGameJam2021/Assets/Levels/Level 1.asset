@@ -17,13 +17,13 @@ MonoBehaviour:
     MyEntity: {fileID: 7122922860483416908, guid: 1354a5cfd0e03b446994dabb65a69f9b,
       type: 3}
   - position: {x: 1, y: 0, z: 3}
-    MyEntity: {fileID: 3277971772883385557, guid: 256f017229d565b478dd827d1d632ad2,
+    MyEntity: {fileID: 2163863796416474447, guid: 494aa00869c8be74483b2bbcfa32d982,
       type: 3}
   - position: {x: 4, y: 0, z: 4}
-    MyEntity: {fileID: 7311442108766509717, guid: 2c9050503c634964e95d017f2e2fe655,
+    MyEntity: {fileID: 7311442108766509717, guid: cc47dfb8bacca494484dbf88332db6ca,
       type: 3}
-  - position: {x: 4, y: 0, z: 4}
-    MyEntity: {fileID: 7311442108766509717, guid: 2c9050503c634964e95d017f2e2fe655,
+  - position: {x: 4, y: 0, z: 6}
+    MyEntity: {fileID: 7311442108766509717, guid: f0258dbd907508b4dae5bd577e7a5031,
       type: 3}
   sizeX: 10
   sizeY: 10
