@@ -132,6 +132,28 @@ public class BoardManager : Singleton<BoardManager>
         }
     }
 
+    public void SelectAllSpots()
+    {
+        if (HighlightedTiles.Count > 0)
+        {
+            DeSelectSpots();
+        }
+
+        for (int x = 0; x < board.GetLength(0); x++)
+        {
+
+            for (int y = 0; y < board.GetLength(1); y++)
+            {
+                HighlightedTiles.Add(board[x, y]);
+            }
+        }
+
+        for (int i = 0; i < HighlightedTiles.Count; i++)
+        {
+            HighlightedTiles[i].Highlight();
+        }
+    }
+
     public List<Tile> SelectTileSpots(TileActionData toCheck, Entity newEntity)
     {
         List<Tile> newTiles = new List<Tile>();
@@ -322,6 +344,50 @@ public class BoardManager : Singleton<BoardManager>
         if (toRemove is EnemyEntity enemy)
         {
             enemiesOnBoard.Remove(enemy);
+        }
+    }
+
+    public void UseFlare(Tile usedOn)
+    {
+        StartCoroutine(FlareRoutine(usedOn));
+    }
+
+    private List<Tile> inUse;
+
+    public IEnumerator FlareRoutine(Tile usedOn)
+    {
+        usedOn.FlipTile(1);
+
+
+        yield return new WaitForSeconds(0.1f);
+        inUse = GetTileRange(usedOn.transform.position, 1);
+        LoopFlare(1);
+        yield return new WaitForSeconds(0.15f);
+        inUse = GetTileRange(usedOn.transform.position, 2);
+        LoopFlare(1);
+        yield return new WaitForSeconds(0.2f);
+        inUse = GetTileRange(usedOn.transform.position, 3);
+        LoopFlare(1);
+
+        yield return new WaitForSeconds(2f);
+
+        inUse = GetTileRange(usedOn.transform.position, 3);
+        LoopFlare(0);
+        yield return new WaitForSeconds(0.1f);
+        inUse = GetTileRange(usedOn.transform.position, 2);
+        LoopFlare(0);
+        yield return new WaitForSeconds(0.15f);
+        inUse = GetTileRange(usedOn.transform.position, 1);
+        LoopFlare(0);
+        yield return new WaitForSeconds(0.2f);
+        usedOn.FlipTile(0);
+    }
+
+    private void LoopFlare(int state)
+    {
+        for (int i = 0; i < inUse.Count; i++)
+        {
+            inUse[i].FlipTile(state);
         }
     }
 }

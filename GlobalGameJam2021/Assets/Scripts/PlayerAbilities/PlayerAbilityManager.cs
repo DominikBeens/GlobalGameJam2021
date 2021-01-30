@@ -78,6 +78,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
 
     private void OnFlareButtonClicked() {
         BoardManager.Instance.DeSelectSpots();
+        BoardManager.Instance.SelectAllSpots();
         tileSelectionMode = AbilityType.Flare;
     }
 
@@ -108,7 +109,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
                         BoardManager.Instance.PlayerAttack(selectedTile);
                         break;
                     case AbilityType.Flare:
-                        //BoardManager.Instance.UseFlare(selectedTile);
+                        BoardManager.Instance.UseFlare(selectedTile);
                         break;
                 }
                 OnAbilitySelected(tileSelectionMode);
