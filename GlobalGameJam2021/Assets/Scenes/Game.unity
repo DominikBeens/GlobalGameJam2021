@@ -773,7 +773,7 @@ MonoBehaviour:
   stateHolder: {fileID: 613442750}
   defaultState: {fileID: 206183468}
   gameCanvasGroup: {fileID: 1056632542}
-  gameOverCanvasGroup: {fileID: 900721302}
+  gameEndCanvasGroup: {fileID: 900721302}
 --- !u!4 &838507920
 Transform:
   m_ObjectHideFlags: 0
@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 900721300}
   - component: {fileID: 900721302}
   m_Layer: 0
-  m_Name: GameOverCanvas
+  m_Name: GameEndCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -960,7 +960,7 @@ GameObject:
   - component: {fileID: 1000307955}
   - component: {fileID: 1000307953}
   m_Layer: 0
-  m_Name: GameOverText
+  m_Name: ResultText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1696,7 +1696,7 @@ GameObject:
   - component: {fileID: 1874378128}
   - component: {fileID: 1874378129}
   m_Layer: 0
-  m_Name: GameOverState
+  m_Name: GameEndState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1728,10 +1728,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4ac60c80c23c4459adff2db5cfec97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverText: {fileID: 1000307955}
+  resultText: {fileID: 1000307955}
   buttonCanvasGroup: {fileID: 1225690841}
   restartButton: {fileID: 254833239}
   menuButton: {fileID: 53762504}
+  wonResultTextMaterial: {fileID: 2100000, guid: 6eb64401405a8a74e907a43866b4e5d6,
+    type: 2}
+  lostResultTextMaterial: {fileID: 2100000, guid: 9a8fc539a7b42f940a23ffac36e2647b,
+    type: 2}
 --- !u!1 &1883128980
 GameObject:
   m_ObjectHideFlags: 0

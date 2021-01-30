@@ -4,50 +4,57 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
 
-public class GameOverState : MonoState {
+public class GameEndState : MonoState {
 
-    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private CanvasGroup buttonCanvasGroup;
     [Space]
     [SerializeField] private Button restartButton;
     [SerializeField] private Button menuButton;
+    [Space]
+    [SerializeField] private Material wonResultTextMaterial;
+    [SerializeField] private Material lostResultTextMaterial;
 
-    private Coroutine gameOverRoutine;
-    private TextAnimator gameOverTextAnimator;
+    private Coroutine endRoutine;
+    private TextAnimator resultTextAnimator;
+    private bool won;
 
     public override void Initialize(MonoStateMachine stateMachine) {
         base.Initialize(stateMachine);
-        gameOverTextAnimator = gameOverText.GetComponent<TextAnimator>();
+        resultTextAnimator = resultText.GetComponent<TextAnimator>();
 
         buttonCanvasGroup.alpha = 0f;
         buttonCanvasGroup.interactable = false;
         buttonCanvasGroup.blocksRaycasts = false;
 
-        gameOverText.text = string.Empty;
+        resultText.text = string.Empty;
     }
 
     public override void Enter(params object[] data) {
-        gameOverRoutine = StartCoroutine(GameOverRoutine());
+        won = (bool)data[0];
+        endRoutine = StartCoroutine(EndRoutine());
     }
 
     public override void Exit() {
         restartButton.onClick.RemoveListener(OnRestartButtonClicked);
         menuButton.onClick.RemoveListener(OnMenuButtonClicked);
-        if (gameOverRoutine != null) {
-            StopCoroutine(gameOverRoutine);
+        if (endRoutine != null) {
+            StopCoroutine(endRoutine);
         }
     }
 
     public override void Tick() { }
 
-    private IEnumerator GameOverRoutine() {
+    private IEnumerator EndRoutine() {
         GameStateMachine.Instance.ToggleGameCanvas(false, 0.1f);
         yield return new WaitForSeconds(0.5f);
-        GameStateMachine.Instance.ToggleGameOverCanvas(true, 1.5f);
+        GameStateMachine.Instance.ToggleGameEndCanvas(true, 1.5f);
         PlayerAbilityManager.Instance.Deinitialize();
         yield return new WaitForSeconds(1f);
 
-        gameOverTextAnimator.ShowText("Game Over", () => {
+        string text = won ? "Victory" : "Game Over";
+        resultText.fontSharedMaterial = won ? wonResultTextMaterial : lostResultTextMaterial;
+        resultTextAnimator.ShowText(text, () => {
             buttonCanvasGroup.DOFade(1f, 0.5f);
             buttonCanvasGroup.interactable = true;
             buttonCanvasGroup.blocksRaycasts = true;
@@ -56,7 +63,9 @@ public class GameOverState : MonoState {
         restartButton.onClick.AddListener(OnRestartButtonClicked);
         menuButton.onClick.AddListener(OnMenuButtonClicked);
 
-        gameOverRoutine = null;
+        restartButton.gameObject.SetActive(!won);
+
+        endRoutine = null;
     }
 
     private void OnRestartButtonClicked() {

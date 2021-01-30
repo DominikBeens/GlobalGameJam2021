@@ -6,7 +6,7 @@ public class GameStateMachine : MonoStateMachine {
     public static GameStateMachine Instance { get; private set; }
 
     [SerializeField] private CanvasGroup gameCanvasGroup;
-    [SerializeField] private CanvasGroup gameOverCanvasGroup;
+    [SerializeField] private CanvasGroup gameEndCanvasGroup;
 
     protected override void Awake() {
         Instance = this;
@@ -17,8 +17,8 @@ public class GameStateMachine : MonoStateMachine {
         ToggleCanvas(gameCanvasGroup, state, transitionDuration);
     }
 
-    public void ToggleGameOverCanvas(bool state, float transitionDuration) {
-        ToggleCanvas(gameOverCanvasGroup, state, transitionDuration);
+    public void ToggleGameEndCanvas(bool state, float transitionDuration) {
+        ToggleCanvas(gameEndCanvasGroup, state, transitionDuration);
     }
 
     private void ToggleCanvas(CanvasGroup canvasGroup, bool state, float transitionDuration) {

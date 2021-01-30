@@ -12,7 +12,7 @@ public class GameStartState : MonoState {
 
     private IEnumerator StartRoutine() {
         GameStateMachine.Instance.ToggleGameCanvas(true, 0.4f);
-        GameStateMachine.Instance.ToggleGameOverCanvas(false, 0f);
+        GameStateMachine.Instance.ToggleGameEndCanvas(false, 0f);
 
         PlayerAbilityManager.Instance.Initialize(true);
         PlayerAbilityManager.Instance.ToggleButtonInteractability(false);
