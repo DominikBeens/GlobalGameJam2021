@@ -648,7 +648,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f92ff18dcd19c42b8c5ac1a693b180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flippedDuration: 3
+  flippedDuration: 1
+  actionDelay: 1
 --- !u!1 &2010261025
 GameObject:
   m_ObjectHideFlags: 0
