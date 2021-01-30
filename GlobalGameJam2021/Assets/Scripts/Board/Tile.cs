@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour {
     [SerializeField] private Transform highlightTransform;
     [SerializeField] private Transform randomVisualHolder;
     [SerializeField] private Transform entityHolder;
+    [SerializeField] private Transform playerIndicator;
     [Space]
     [SerializeField] private MeshRenderer tileBaseRenderer;
     [Space]
@@ -48,13 +49,21 @@ public class Tile : MonoBehaviour {
 
         tileBasePropertyBlock = new MaterialPropertyBlock();
         tileBaseRenderer.SetPropertyBlock(tileBasePropertyBlock);
+
+        playerIndicator.localScale = Vector3.zero;
     }
 
     public void AddEntity(Entity entity) {
         Entity = entity;
+        if (entity is PlayerEntity) {
+            playerIndicator.DOScale(1f, 0.1f);
+        }
     }
 
     public void RemoveEntity() {
+        if (Entity && Entity is PlayerEntity) {
+            playerIndicator.DOScale(0f, 0.1f);
+        }
         Entity = null;
     }
 
