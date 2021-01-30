@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/ActionData/Attack")]
-public class AttackActionData : EntityActionData {
+[CreateAssetMenu(menuName = "Data/ActionData/Tile")]
+public class TileActionData : EntityActionData {
 
     [Header("Straight")]
     [Min(0)] public int North;
@@ -14,5 +14,4 @@ public class AttackActionData : EntityActionData {
     [Min(0)] public int SouthEast;
     [Min(0)] public int SouthWest;
     [Min(0)] public int NorthWest;
-
 }

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 457462caf296a9d44b5ae03e3c86da29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableActions:
-  - {fileID: 11400000, guid: ebf8eacd9b9e101449a95a79bf0e5848, type: 2}
-  - {fileID: 11400000, guid: 14cc5d8cfbc07dc45b6ae0197899a061, type: 2}
+  moveActionData: {fileID: 11400000, guid: ebf8eacd9b9e101449a95a79bf0e5848, type: 2}
+  attackActionData: {fileID: 11400000, guid: d6686f76eca8ca44c9a12520edb1dd11, type: 2}
   visual: {fileID: 7321749440649747310}
   North: {fileID: 6305919483288448511}
   East: {fileID: 6347848169055364162}

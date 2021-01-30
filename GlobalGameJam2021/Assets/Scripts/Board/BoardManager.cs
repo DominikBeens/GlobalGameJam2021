@@ -106,89 +106,29 @@ public class BoardManager : Singleton<BoardManager>
         {
             DeSelectMoveSpots();
         }
-        HighlightedTiles = SelectMoveSpots(myPlayerEntity.MoveActionData, myPlayerEntity);
+        HighlightedTiles = SelectTileSpots(myPlayerEntity.MoveActionData, myPlayerEntity);
         for (int i = 0; i < HighlightedTiles.Count; i++)
         {
             HighlightedTiles[i].Highlight();
         }
     }
 
-    public List<Tile> SelectMoveSpots(MoveActionData toCheck, Entity newEntity)
+    public List<Tile> SelectTileSpots(TileActionData toCheck, Entity newEntity)
     {
         List<Tile> newTiles = new List<Tile>();
-
-        List<Tile> directionTiles = SelectDirection(toCheck.North, newEntity.gameObject.transform.position, newEntity.North.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
+        newTiles.AddRange(SelectDirection(toCheck.North, newEntity.gameObject.transform.position, newEntity.North.position));
+        newTiles.AddRange(SelectDirection(toCheck.East, newEntity.gameObject.transform.position, newEntity.East.position));
+        newTiles.AddRange(SelectDirection(toCheck.South, newEntity.gameObject.transform.position, newEntity.South.position));
+        newTiles.AddRange(SelectDirection(toCheck.West, newEntity.gameObject.transform.position, newEntity.West.position));
+        newTiles.AddRange(SelectDirection(toCheck.NorthEast, newEntity.gameObject.transform.position, newEntity.NorthEast.position));
+        newTiles.AddRange(SelectDirection(toCheck.NorthWest, newEntity.gameObject.transform.position, newEntity.NorthWest.position));
+        newTiles.AddRange(SelectDirection(toCheck.SouthEast, newEntity.gameObject.transform.position, newEntity.SouthEast.position));
+        newTiles.AddRange(SelectDirection(toCheck.SouthWest, newEntity.gameObject.transform.position, newEntity.SouthWest.position));
+        for (int i = newTiles.Count - 1; i >= 0; i--) {
+            if (newTiles[i] == null) {
+                newTiles.RemoveAt(i);
             }
         }
-
-        directionTiles = SelectDirection(toCheck.East, newEntity.gameObject.transform.position, newEntity.East.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
-            }
-        }
-
-        directionTiles = SelectDirection(toCheck.South, newEntity.gameObject.transform.position, newEntity.South.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
-            }
-        }
-
-        directionTiles = SelectDirection(toCheck.West, newEntity.gameObject.transform.position, newEntity.West.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
-            }
-        }
-
-        directionTiles = SelectDirection(toCheck.NorthEast, newEntity.gameObject.transform.position, newEntity.NorthEast.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
-            }
-        }
-
-        directionTiles = SelectDirection(toCheck.NorthWest, newEntity.gameObject.transform.position, newEntity.NorthWest.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
-            }
-        }
-
-        directionTiles = SelectDirection(toCheck.SouthEast, newEntity.gameObject.transform.position, newEntity.SouthEast.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
-            }
-        }
-
-        directionTiles = SelectDirection(toCheck.SouthWest, newEntity.gameObject.transform.position, newEntity.SouthWest.position);
-        for (int i = 0; i < directionTiles.Count; i++)
-        {
-            if (directionTiles[i] != null)
-            {
-                newTiles.Add(directionTiles[i]);
-            }
-        }
-
         return newTiles;
     }
 
@@ -211,7 +151,7 @@ public class BoardManager : Singleton<BoardManager>
         int y = Mathf.RoundToInt(toSelect.y);
         if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
         {
-            if (board[x, y].myEntity == null || !(board[x, y].myEntity is StaticEntity))
+            if (board[x, y].Entity == null || !(board[x, y].Entity is StaticEntity))
             {
                 return board[x, y];
             }
@@ -286,7 +226,7 @@ public class BoardManager : Singleton<BoardManager>
     public bool MoveEntity(Tile newMoveToTile, Entity newToMove)
     {
 
-        if (newMoveToTile.myEntity == null)
+        if (newMoveToTile.Entity == null)
         {
             toMove = newToMove;
             moveToTile = newMoveToTile;

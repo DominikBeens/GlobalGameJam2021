@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3277971772883385557, guid: 256f017229d565b478dd827d1d632ad2,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Dome
       objectReference: {fileID: 0}
     - target: {fileID: 9061026258999015561, guid: 256f017229d565b478dd827d1d632ad2,
         type: 3}
