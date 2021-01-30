@@ -298,11 +298,6 @@ public class BoardManager : Singleton<BoardManager>
         else if (toAttack.Entity != null)
         {
             toAttack.Entity.isDestroyed = true;
-            if (enemiesOnBoard.Count <= 1)
-            {
-                GameStateMachine.Instance.EnterState<GameEndState>(true);
-                yield break;
-            }
         }
         else
         {
@@ -315,6 +310,10 @@ public class BoardManager : Singleton<BoardManager>
         {
             enemiesOnBoard[i].ExecuteAction();
             yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+        }
+        if (enemiesOnBoard.Count <= 0)
+        {
+            GameStateMachine.Instance.EnterState<GameEndState>(true);
         }
     }
 
