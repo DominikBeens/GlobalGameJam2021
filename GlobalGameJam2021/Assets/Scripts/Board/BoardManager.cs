@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardManager : Singleton<BoardManager>
 {
-    [SerializeField] private List<EntityPlacement> Level = new List<EntityPlacement>();
+    public List<EntityPlacement> Level = new List<EntityPlacement>();
     [SerializeField] private GameObject tile;
     private PlayerEntity myPlayerEntity;
     private Tile[,] board;
@@ -141,6 +141,11 @@ public class BoardManager : Singleton<BoardManager>
     }
     #endregion
 
+    public Tile GetTile(Vector3 getTilePos)
+    {
+        return board[Mathf.RoundToInt(getTilePos.x), Mathf.RoundToInt(getTilePos.z)];
+    }
+
     public void MovePlayer(Tile moveToTile)
     {
         if (HighlightedTiles.Count > 0)
@@ -170,7 +175,7 @@ public class BoardManager : Singleton<BoardManager>
 
         if (newMoveToTile.myEntity == null)
         {
-            board[Mathf.RoundToInt(newToMove.transform.position.x), Mathf.RoundToInt(newToMove.transform.position.z)].RemoveEntity();
+            //board[Mathf.RoundToInt(newToMove.transform.position.x), Mathf.RoundToInt(newToMove.transform.position.z)].RemoveEntity();
             newToMove.MoveToTile(newMoveToTile);
             return true;
         }
