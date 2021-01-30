@@ -7,7 +7,7 @@ public class BoardManager : Singleton<BoardManager>
     public List<Level> Level = new List<Level>();
     [SerializeField] private GameObject tile;
     private PlayerEntity myPlayerEntity;
-    public List<EnemyEntity> enimiesOnBoard = new List<EnemyEntity>();
+    public List<EnemyEntity> enemiesOnBoard = new List<EnemyEntity>();
     private Tile[,] board;
 
     protected override void Awake()
@@ -20,7 +20,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            FlipBoard();
+            FlipBoard(0);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -45,7 +45,7 @@ public class BoardManager : Singleton<BoardManager>
             }
         }
 
-        enimiesOnBoard.Clear();
+        enemiesOnBoard.Clear();
         for (int i = 0; i < currentEntities.Count; i++)
         {
             int tilePlaceX = Mathf.RoundToInt(currentEntities[i].position.x);
@@ -54,7 +54,7 @@ public class BoardManager : Singleton<BoardManager>
 
             if (newEntity is EnemyEntity newEnemy)
             {
-                enimiesOnBoard.Add(newEnemy);
+                enemiesOnBoard.Add(newEnemy);
             }
 
             board[tilePlaceX, tilePlaceY].AddEntity(newEntity);
@@ -74,26 +74,26 @@ public class BoardManager : Singleton<BoardManager>
         board[xPos, yPos].FlipTile();
     }
 
-    public void FlipBoard()
+    public void FlipBoard(int sideToFlip)
     {
-        StartCoroutine(FlipActions());
+        StartCoroutine(FlipActions(sideToFlip));
     }
 
-    private IEnumerator FlipBoardIE()
+    private IEnumerator FlipBoardIE(int sideToFlip)
     {
         for (int x = 0; x < board.GetLength(0); x++)
         {
-            StartCoroutine(FlipBoardIEDiaginal(x));
+            StartCoroutine(FlipBoardIEDiaginal(x, sideToFlip));
             yield return new WaitForSeconds(0.05f);
         }
     }
 
-    private IEnumerator FlipBoardIEDiaginal(int xNumber)
+    private IEnumerator FlipBoardIEDiaginal(int xNumber, int sideToFlip)
     {
         for (int z = 0; z < board.GetLength(1); z++)
         {
             yield return new WaitForSeconds(0.05f);
-            board[xNumber, z].FlipTile();
+            board[xNumber, z].FlipTile(sideToFlip);
         }
     }
 
@@ -228,15 +228,19 @@ public class BoardManager : Singleton<BoardManager>
         {
             toAttack.Entity.isDestroyed = true;
         }
+        else
+        {
+            ProjectileManager.Instance.SendBom(toAttack.transform.position);
+        }
     }
 
 
     private Entity toMove;
     private Tile moveToTile;
 
-    public IEnumerator FlipActions()
+    public IEnumerator FlipActions(int sideToFlip)
     {
-        yield return StartCoroutine(FlipBoardIE());
+        yield return StartCoroutine(FlipBoardIE(sideToFlip));
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -257,10 +261,19 @@ public class BoardManager : Singleton<BoardManager>
 
         yield return new WaitForSeconds(0.5f);
 
-        foreach (EnemyEntity enemy in enimiesOnBoard)
+
+        for (int i = enemiesOnBoard.Count - 1; i >= 0; i--)
         {
-            enemy.ExecuteAction();
+            enemiesOnBoard[i].ExecuteAction();
             yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+        }
+    }
+
+    public void RemoveEntityFromBoard(Entity toRemove)
+    {
+        if (toRemove is EnemyEntity enemy)
+        {
+            enemiesOnBoard.Remove(enemy);
         }
     }
 }

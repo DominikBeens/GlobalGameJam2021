@@ -21,6 +21,7 @@ public class EnemyEntity : Entity
             if (tile.Entity is PlayerEntity)
             {
                 GameStateMachine.Instance.EnterState<GameOverState>();
+                ProjectileManager.Instance.SendBom(tile.Entity);
                 return;
             }
         }

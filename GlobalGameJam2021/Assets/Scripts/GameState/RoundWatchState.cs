@@ -21,7 +21,7 @@ public class RoundWatchState : MonoState {
     public override void Tick() { }
 
     private IEnumerator WatchRoutine() {
-        BoardManager.Instance.FlipBoard();
+        BoardManager.Instance.FlipBoard(1);
         yield return new WaitForSeconds(actionDelay);
         yield return BoardManager.Instance.PlayBoardActions();
         yield return new WaitForSeconds(flippedDuration);

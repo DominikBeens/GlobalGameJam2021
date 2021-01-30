@@ -18,7 +18,7 @@ public class RoundPlayState : MonoState {
         round++;
         roundTextAnimator.ShowText($"Round {round}");
 
-        BoardManager.Instance.FlipBoard();
+        BoardManager.Instance.FlipBoard(2);
         PlayerAbilityManager.Instance.ToggleButtonInteractability(true);
         PlayerAbilityManager.Instance.OnAbilitySelected += OnAbilitySelectedHandler;
     }

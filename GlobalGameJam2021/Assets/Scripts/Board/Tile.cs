@@ -58,7 +58,16 @@ public class Tile : MonoBehaviour {
         Entity = null;
     }
 
-    public void FlipTile() {
+    public void FlipTile(int flipType = 0) {
+        if (flipType == 1 && isFlipped == false)
+        {
+            return;
+        }
+        else if (flipType == 2 && isFlipped == true)
+        {
+            return;
+        }
+
         isFlipped = !isFlipped;
 
         Vector3 rotation = new Vector3(0, 0, gameObject.transform.localEulerAngles.x - 180);

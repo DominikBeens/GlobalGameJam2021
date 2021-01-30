@@ -25,7 +25,9 @@ MonoBehaviour:
   NorthWest: {fileID: 1403588678277292120}
   jumpHeight: 1.5
   jumpDuration: 0.4
+  bomFallDuration: 1
   jumpEase: 2
+  bomEase: 5
   bom: {fileID: 7030292988817941294, guid: 3e9f0d3a91d51ce448ae94dc3ad0bb57, type: 3}
   isDestroyed: 0
 --- !u!1001 &6695661669591402905
