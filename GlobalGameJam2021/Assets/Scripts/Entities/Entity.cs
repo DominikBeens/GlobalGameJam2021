@@ -17,23 +17,7 @@ public abstract class Entity : MonoBehaviour {
     public Transform SouthWest;
     public Transform NorthWest;
 
-    public void ExecuteAction() {
-        if (availableActions.Count <= 0) { return; }
-        EntityActionData action = availableActions[Random.Range(0, availableActions.Count)];
-        ExecuteAction(action);
-    }
+    public virtual void MoveToTile() {
 
-    private void ExecuteAction(EntityActionData action) {
-        switch (action) {
-            case MoveActionData x:
-                ExecuteMoveAction(x);
-                break;
-            case AttackActionData x:
-                ExecuteAttackAction(x);
-                break;
-        }
     }
-
-    protected virtual void ExecuteMoveAction(MoveActionData data) { }
-    protected virtual void ExecuteAttackAction(AttackActionData data) { }
 }
