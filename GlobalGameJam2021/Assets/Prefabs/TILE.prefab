@@ -109,12 +109,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myEntity: {fileID: 0}
-  canMoveTo: 0
   visual: {fileID: 5526601874563475235}
   rotationTransform: {fileID: 5717692893633057256}
   hoverTransform: {fileID: 5956158879202931839}
   highlightTransform: {fileID: 116198722642231391}
   randomVisualHolder: {fileID: 3415944542697672809}
+  entityHolder: {fileID: 5526601874563475235}
   tileBaseRenderer: {fileID: 6442211823887072299}
   defaultEmissionColor: {r: 0, g: 1, b: 0.4670732, a: 1}
   highlightEmissionColor: {r: 0, g: 0.12710404, b: 1, a: 1}
@@ -123,6 +123,8 @@ MonoBehaviour:
   hoverOutDuration: 0.1
   highlightInDuration: 0.2
   highlightOutDuration: 0.1
+  landDuration: 0.2
+  landYAmount: 0.25
 --- !u!65 &4954239147561535864
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -177,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5526601874563475235}
   m_Layer: 8
-  m_Name: EntityVisualHolderMan
+  m_Name: EntityHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

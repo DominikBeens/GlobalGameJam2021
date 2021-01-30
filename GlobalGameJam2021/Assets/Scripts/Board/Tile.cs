@@ -3,13 +3,14 @@ using DG.Tweening;
 
 public class Tile : MonoBehaviour {
 
-    public Entity myEntity;
     public Transform visual;
 
     [SerializeField] private Transform rotationTransform;
     [SerializeField] private Transform hoverTransform;
     [SerializeField] private Transform highlightTransform;
     [SerializeField] private Transform randomVisualHolder;
+    [SerializeField] private Transform entityHolder;
+    [Space]
     [SerializeField] private MeshRenderer tileBaseRenderer;
     [Space]
     [SerializeField, ColorUsage(true, true)] private Color defaultEmissionColor;
@@ -26,11 +27,18 @@ public class Tile : MonoBehaviour {
     [SerializeField] private float highlightInDuration = 0.2f;
     [SerializeField] private float highlightOutDuration = 0.1f;
 
+    [Header("Entity Land")]
+    [SerializeField] private float landDuration = 0.2f;
+    [SerializeField] private float landYAmount = 0.25f;
+
     private bool isFlipped = false;
     private MaterialPropertyBlock tileBasePropertyBlock;
     private Tween highlightTween;
 
     public bool IsHighlighted { get; private set; }
+    public Entity myEntity { get; private set; }
+
+    public Transform EntityHolder => entityHolder;
 
     private void Awake() {
         foreach (Transform t in randomVisualHolder) {
@@ -40,6 +48,14 @@ public class Tile : MonoBehaviour {
 
         tileBasePropertyBlock = new MaterialPropertyBlock();
         tileBaseRenderer.SetPropertyBlock(tileBasePropertyBlock);
+    }
+
+    public void AddEntity(Entity entity) {
+        myEntity = entity;
+    }
+
+    public void RemoveEntity() {
+        myEntity = null;
     }
 
     public void FlipTile() {

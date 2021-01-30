@@ -17,7 +17,5 @@ public abstract class Entity : MonoBehaviour {
     public Transform SouthWest;
     public Transform NorthWest;
 
-    public virtual void MoveToTile(Tile tile) {
-
-    }
+    public virtual void MoveToTile(Tile tile) { }
 }
