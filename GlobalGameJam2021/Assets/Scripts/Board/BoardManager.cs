@@ -192,7 +192,8 @@ public class BoardManager : Singleton<BoardManager>
         {
             DeSelectMoveSpots();
         }
-        MoveEntity(moveToTile, myPlayerEntity);
+        toMove = myPlayerEntity;
+        this.moveToTile = moveToTile;
     }
 
 
@@ -207,6 +208,11 @@ public class BoardManager : Singleton<BoardManager>
 
     public IEnumerator PlayBoardActions()
     {
+        if (moveToTile.Entity && moveToTile.Entity is EnemyEntity) {
+            GameStateMachine.Instance.EnterState<GameOverState>();
+            yield break;
+        }
+
         if (toMove != null && moveToTile != null)
         {
             toMove.MoveToTile(moveToTile);
@@ -220,21 +226,6 @@ public class BoardManager : Singleton<BoardManager>
         {
             enemy.ExecuteAction();
             yield return new WaitForSeconds(Random.Range(0.2f,0.5f));
-        }
-    }
-
-    public bool MoveEntity(Tile newMoveToTile, Entity newToMove)
-    {
-
-        if (newMoveToTile.Entity == null)
-        {
-            toMove = newToMove;
-            moveToTile = newMoveToTile;
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
 }

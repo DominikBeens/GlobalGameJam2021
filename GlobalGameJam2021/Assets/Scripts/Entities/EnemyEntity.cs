@@ -10,7 +10,7 @@ public class EnemyEntity : Entity {
         List<Tile> attackTiles = BoardManager.Instance.SelectTileSpots(attackActionData, this);
         foreach (Tile tile in attackTiles) {
             if (tile.Entity is PlayerEntity) {
-                Debug.LogError("GAME OVER");
+                GameStateMachine.Instance.EnterState<GameOverState>();
                 return;
             }
         }
