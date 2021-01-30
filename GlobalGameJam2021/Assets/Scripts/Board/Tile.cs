@@ -4,6 +4,9 @@ using DG.Tweening;
 public class Tile : MonoBehaviour {
 
     public Entity myEntity;
+    public bool canMoveTo;
+
+    public Transform visual;
 
     [SerializeField] private Transform rotationTransform;
     [SerializeField] private Transform hoverTransform;
@@ -58,12 +61,14 @@ public class Tile : MonoBehaviour {
     }
 
     public void Highlight() {
+        canMoveTo = true;
         highlightTransform.DOKill();
         highlightTransform.DOLocalMoveY(0.1f, highlightInDuration);
         TweenTileBaseEmission(highlightEmissionColor, highlightInDuration);
     }
 
     public void UnHighlight() {
+        canMoveTo = false;
         highlightTransform.DOKill();
         highlightTransform.DOLocalMoveY(0f, highlightOutDuration);
         TweenTileBaseEmission(defaultEmissionColor, highlightOutDuration);

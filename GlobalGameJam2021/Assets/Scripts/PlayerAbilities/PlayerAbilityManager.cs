@@ -136,7 +136,6 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager>
     private void DeselectTile()
     {
         if (!selectedTile) { return; }
-        BoardManager.Instance.DeSelectMoveSpots();
         selectedTile.UnHover();
         selectedTile = null;
     }

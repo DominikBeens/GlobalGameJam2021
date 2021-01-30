@@ -25,21 +25,26 @@ public class BoardManager : Singleton<BoardManager>
 
     public void BuildLevel(int sizeX, int sizeZ, List<EntityPlacement> entitiesToPlace)
     {
+        GameObject tileHolder = Instantiate(new GameObject("[Tile Holder]"));
+
         board = new Tile[sizeX, sizeZ];
         for (int x = 0; x < sizeX; x++)
         {
             for (int z = 0; z < sizeZ; z++)
             {
-                board[x, z] = Instantiate(tile).GetComponent<Tile>();
+                board[x, z] = Instantiate(tile, tileHolder.transform).GetComponent<Tile>();
                 board[x, z].gameObject.transform.position = new Vector3(x, 0, z);
             }
         }
 
+
         for (int i = 0; i < entitiesToPlace.Count; i++)
         {
-            Entity newEntity = Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation).GetComponent<Entity>();
+            int tilePlaceX = Mathf.RoundToInt(entitiesToPlace[i].position.x);
+            int tilePlaceY = Mathf.RoundToInt(entitiesToPlace[i].position.z);
+            Entity newEntity = Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation, board[tilePlaceX, tilePlaceY].visual).GetComponent<Entity>();
 
-            board[Mathf.RoundToInt(entitiesToPlace[i].position.x), Mathf.RoundToInt(entitiesToPlace[i].position.z)].myEntity = newEntity;
+            board[tilePlaceX, tilePlaceY].myEntity = newEntity;
 
             if (newEntity is PlayerEntity playerEntity)
             {
@@ -75,6 +80,8 @@ public class BoardManager : Singleton<BoardManager>
             board[xNumber, z].FlipTile();
         }
     }
+
+    #region SelectMovement
 
     public void SelectMoveSpots()
     {
@@ -145,7 +152,17 @@ public class BoardManager : Singleton<BoardManager>
             }
         }
     }
+    #endregion
 
+    public void MovePlayer(Tile moveToTile)
+    {
+        MoveEntity(moveToTile,myPlayerEntity);
+    }
+
+    public void MoveEntity(Tile moveToTile , Entity toMove)
+    {
+
+    }
 }
 
 [System.Serializable]
