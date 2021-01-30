@@ -3,10 +3,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using TMPro;
 
 public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     [SerializeField] private Image image;
+    [SerializeField] private TextMeshProUGUI text;
     [Space]
     [SerializeField] private Sprite moveSprite;
     [SerializeField] private Sprite attackSprite;
@@ -27,9 +29,9 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         button.onClick.AddListener(OnButtonClicked);
 
         switch (type) {
-            case PlayerAbilityManager.AbilityType.Move: image.sprite = moveSprite; break;
-            case PlayerAbilityManager.AbilityType.Attack: image.sprite = attackSprite; break;
-            case PlayerAbilityManager.AbilityType.Flare: image.sprite = flareSprite; break;
+            case PlayerAbilityManager.AbilityType.Move: image.sprite = moveSprite; text.text = "Move"; break;
+            case PlayerAbilityManager.AbilityType.Attack: image.sprite = attackSprite; text.text = "Attack"; break;
+            case PlayerAbilityManager.AbilityType.Flare: image.sprite = flareSprite; text.text = "Flare"; break;
         }
     }
 
