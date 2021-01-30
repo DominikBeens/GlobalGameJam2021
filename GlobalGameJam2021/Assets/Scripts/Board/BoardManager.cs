@@ -93,36 +93,115 @@ public class BoardManager : Singleton<BoardManager>
 
     #region SelectMovement
 
-
     private List<Tile> HighlightedTiles = new List<Tile>();
-    public void SelectMoveSpots()
+    public void SelectPlayerMoveSpots()
     {
         if (HighlightedTiles.Count > 0)
         {
             DeSelectMoveSpots();
         }
-        HighlightedTiles = new List<Tile>();
-        SelectDirection(myPlayerEntity.MoveActionData.North, myPlayerEntity.gameObject.transform.position, myPlayerEntity.North.position);
-        SelectDirection(myPlayerEntity.MoveActionData.East, myPlayerEntity.gameObject.transform.position, myPlayerEntity.East.position);
-        SelectDirection(myPlayerEntity.MoveActionData.South, myPlayerEntity.gameObject.transform.position, myPlayerEntity.South.position);
-        SelectDirection(myPlayerEntity.MoveActionData.West, myPlayerEntity.gameObject.transform.position, myPlayerEntity.West.position);
-        SelectDirection(myPlayerEntity.MoveActionData.NorthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthEast.position);
-        SelectDirection(myPlayerEntity.MoveActionData.NorthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthWest.position);
-        SelectDirection(myPlayerEntity.MoveActionData.SouthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthEast.position);
-        SelectDirection(myPlayerEntity.MoveActionData.SouthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthWest.position);
+        HighlightedTiles = SelectMoveSpots(myPlayerEntity.MoveActionData, myPlayerEntity);
+        for (int i = 0; i < HighlightedTiles.Count; i++)
+        {
+            HighlightedTiles[i].Highlight();
+        }
     }
 
-    private void SelectDirection(int Amount, Vector3 currentPos, Vector3 directionPos)
+    public List<Tile> SelectMoveSpots(MoveActionData toCheck, Entity newEntity)
     {
+        List<Tile> newTiles = new List<Tile>();
+
+        List<Tile> directionTiles = new List<Tile>();
+
+        directionTiles = SelectDirection(toCheck.North, newEntity.gameObject.transform.position, newEntity.North.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        directionTiles = SelectDirection(toCheck.East, newEntity.gameObject.transform.position, newEntity.East.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        directionTiles = SelectDirection(toCheck.South, newEntity.gameObject.transform.position, newEntity.South.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        directionTiles = SelectDirection(toCheck.West, newEntity.gameObject.transform.position, newEntity.West.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        directionTiles = SelectDirection(toCheck.NorthEast, newEntity.gameObject.transform.position, newEntity.NorthEast.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        directionTiles = SelectDirection(toCheck.NorthWest, newEntity.gameObject.transform.position, newEntity.NorthWest.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        directionTiles = SelectDirection(toCheck.SouthEast, newEntity.gameObject.transform.position, newEntity.SouthEast.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        directionTiles = SelectDirection(toCheck.SouthWest, newEntity.gameObject.transform.position, newEntity.SouthWest.position);
+        for (int i = 0; i < directionTiles.Count; i++)
+        {
+            if (directionTiles[i] != null)
+            {
+                newTiles.Add(directionTiles[i]);
+            }
+        }
+
+        return newTiles;
+    }
+
+    private List<Tile> SelectDirection(int Amount, Vector3 currentPos, Vector3 directionPos)
+    {
+        List<Tile> newTiles = new List<Tile>();
+
         for (int i = 0; i < Amount; i++)
         {
             Vector3 pos = (currentPos - directionPos);
             Vector2 dir = new Vector2(directionPos.x, directionPos.z);
-            SelectTile(dir - new Vector2(pos.x, pos.z) * i);
+            newTiles.Add(SelectTile(dir - new Vector2(pos.x, pos.z) * i));
         }
+        return newTiles;
     }
 
-    private void SelectTile(Vector2 toSelect)
+    private Tile SelectTile(Vector2 toSelect)
     {
         int x = Mathf.RoundToInt(toSelect.x);
         int y = Mathf.RoundToInt(toSelect.y);
@@ -130,10 +209,11 @@ public class BoardManager : Singleton<BoardManager>
         {
             if (board[x, y].myEntity == null || !(board[x, y].myEntity is StaticEntity))
             {
-                HighlightedTiles.Add(board[x, y]);
-                board[x, y].Highlight();
+                return board[x, y];
             }
         }
+
+        return null;
     }
 
     public void DeSelectMoveSpots()
@@ -169,6 +249,11 @@ public class BoardManager : Singleton<BoardManager>
             DeSelectMoveSpots();
         }
         MoveEntity(moveToTile, myPlayerEntity);
+    }
+
+    public void EntityRange(MoveActionData moveData, Vector3 entityPos)
+    {
+
     }
 
 
