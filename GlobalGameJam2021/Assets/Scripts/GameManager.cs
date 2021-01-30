@@ -23,14 +23,13 @@ public class GameManager : Singleton<GameManager> {
     private IEnumerator Initialize() {
         yield return new WaitForSeconds(0.1f);
         yield return LoadMenuRoutine();
-        yield return LoadLevelRoutine(2);
     }
 
     private IEnumerator LoadMenuRoutine() {
         yield return LoadSceneRoutine(menuScene);
     }
 
-    private IEnumerator LoadLevelRoutine(int level) { //Level needs to be chosen!!!11!
+    private IEnumerator LoadLevelRoutine(int level) {
         currentLevel = level;
         yield return LoadSceneRoutine(gameScene);
         Camera = Camera.main;
@@ -43,6 +42,16 @@ public class GameManager : Singleton<GameManager> {
         while (!IsDoneLoading()) {
             yield return null;
         }
+    }
+
+    public void LoadLevel(int level) {
+        StartCoroutine(LoadLevelRoutine(level));
+    }
+
+    public void LoadLevel(Level level) {
+        int index = BoardManager.Instance.Level.IndexOf(level);
+        if (index <= -1) { return; }
+        StartCoroutine(LoadLevelRoutine(index));
     }
 
     public void RestartLevel() {

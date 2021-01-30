@@ -24,3 +24,4 @@ MonoBehaviour:
       type: 3}
   sizeX: 10
   sizeY: 10
+  levelName: Tutorial

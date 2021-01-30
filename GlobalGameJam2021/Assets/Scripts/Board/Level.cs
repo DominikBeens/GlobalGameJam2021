@@ -8,6 +8,7 @@ public class Level : ScriptableObject
     public List<EntityPlacement> entities = new List<EntityPlacement>();
     public int sizeX;
     public int sizeY;
+    public string levelName;
 }
 
 [System.Serializable]
