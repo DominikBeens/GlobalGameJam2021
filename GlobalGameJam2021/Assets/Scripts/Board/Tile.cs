@@ -3,8 +3,6 @@ using DG.Tweening;
 
 public class Tile : MonoBehaviour {
 
-    public Transform visual;
-
     [SerializeField] private Transform rotationTransform;
     [SerializeField] private Transform hoverTransform;
     [SerializeField] private Transform highlightTransform;
