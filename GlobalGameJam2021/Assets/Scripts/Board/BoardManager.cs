@@ -83,8 +83,15 @@ public class BoardManager : Singleton<BoardManager>
 
     #region SelectMovement
 
+
+    private List<Tile> HighlightedTiles = new List<Tile>();
     public void SelectMoveSpots()
     {
+        if (HighlightedTiles.Count > 0)
+        {
+            DeSelectMoveSpots();
+        }
+        HighlightedTiles = new List<Tile>();
         SelectDirection(myPlayerEntity.MoveActionData.North, myPlayerEntity.gameObject.transform.position, myPlayerEntity.North.position);
         SelectDirection(myPlayerEntity.MoveActionData.East, myPlayerEntity.gameObject.transform.position, myPlayerEntity.East.position);
         SelectDirection(myPlayerEntity.MoveActionData.South, myPlayerEntity.gameObject.transform.position, myPlayerEntity.South.position);
@@ -113,6 +120,7 @@ public class BoardManager : Singleton<BoardManager>
         {
             if (board[x, y].myEntity == null || !(board[x, y].myEntity is StaticEntity))
             {
+                HighlightedTiles.Add(board[x, y]);
                 board[x, y].Highlight();
             }
         }
@@ -120,37 +128,12 @@ public class BoardManager : Singleton<BoardManager>
 
     public void DeSelectMoveSpots()
     {
-        DeSelectDirection(myPlayerEntity.MoveActionData.North, myPlayerEntity.gameObject.transform.position, myPlayerEntity.North.position);
-        DeSelectDirection(myPlayerEntity.MoveActionData.East, myPlayerEntity.gameObject.transform.position, myPlayerEntity.East.position);
-        DeSelectDirection(myPlayerEntity.MoveActionData.South, myPlayerEntity.gameObject.transform.position, myPlayerEntity.South.position);
-        DeSelectDirection(myPlayerEntity.MoveActionData.West, myPlayerEntity.gameObject.transform.position, myPlayerEntity.West.position);
-        DeSelectDirection(myPlayerEntity.MoveActionData.NorthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthEast.position);
-        DeSelectDirection(myPlayerEntity.MoveActionData.NorthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.NorthWest.position);
-        DeSelectDirection(myPlayerEntity.MoveActionData.SouthEast, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthEast.position);
-        DeSelectDirection(myPlayerEntity.MoveActionData.SouthWest, myPlayerEntity.gameObject.transform.position, myPlayerEntity.SouthWest.position);
-    }
-
-    private void DeSelectDirection(int Amount, Vector3 currentPos, Vector3 directionPos)
-    {
-        for (int i = 0; i < Amount; i++)
+        for (int i = 0; i < HighlightedTiles.Count; i++)
         {
-            Vector3 pos = (currentPos - directionPos);
-            Vector2 dir = new Vector2(directionPos.x, directionPos.z);
-            DeSelectTile(dir - new Vector2(pos.x, pos.z) * i);
+            HighlightedTiles[i].UnHighlight();
         }
-    }
 
-    private void DeSelectTile(Vector2 toSelect)
-    {
-        int x = Mathf.RoundToInt(toSelect.x);
-        int y = Mathf.RoundToInt(toSelect.y);
-        if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
-        {
-            if (board[x, y].myEntity == null || !(board[x, y].myEntity is StaticEntity))
-            {
-                board[x, y].UnHighlight();
-            }
-        }
+        HighlightedTiles.Clear();
     }
     #endregion
 
