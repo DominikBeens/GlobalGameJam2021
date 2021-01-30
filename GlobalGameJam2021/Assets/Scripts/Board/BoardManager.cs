@@ -53,14 +53,15 @@ public class BoardManager : Singleton<BoardManager>
         }
     }
 
-    public void FlipBoard()
-    {
-        StartCoroutine(FlipBoardIE());
-    }
-
+    #region Flip Tiles
     public void TileToFlip(int tilex, int tilez)
     {
         board[tilex, tilez].FlipTile();
+    }
+
+    public void FlipBoard()
+    {
+        StartCoroutine(FlipBoardIE());
     }
 
     public IEnumerator FlipBoardIE()
@@ -80,6 +81,8 @@ public class BoardManager : Singleton<BoardManager>
             board[xNumber, z].FlipTile();
         }
     }
+
+    #endregion
 
     #region SelectMovement
 
@@ -139,15 +142,31 @@ public class BoardManager : Singleton<BoardManager>
 
     public void MovePlayer(Tile moveToTile)
     {
-        MoveEntity(moveToTile,myPlayerEntity);
+        if (HighlightedTiles.Count > 0)
+        {
+            DeSelectMoveSpots();
+        }
+        MoveEntity(moveToTile, myPlayerEntity);
     }
 
-    public void MoveEntity(Tile moveToTile , Entity toMove)
+
+
+    public bool MoveEntity(Tile moveToTile, Entity toMove)
     {
-        board[Mathf.RoundToInt(toMove.transform.position.x), Mathf.RoundToInt(toMove.transform.position.z)].myEntity = null;
-        toMove.gameObject.transform.SetParent(moveToTile.gameObject.transform);
-        toMove.transform.position = moveToTile.transform.position;
-        moveToTile.myEntity = toMove;
+        if (moveToTile.myEntity == null)
+        {
+            board[Mathf.RoundToInt(toMove.transform.position.x), Mathf.RoundToInt(toMove.transform.position.z)].myEntity = null;
+            moveToTile.myEntity = toMove;
+            toMove.MoveToTile(moveToTile);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+        /*toMove.gameObject.transform.SetParent(moveToTile.gameObject.transform);
+        toMove.transform.position = moveToTile.transform.position;*/
     }
 }
 
