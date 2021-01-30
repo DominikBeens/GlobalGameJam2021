@@ -10,6 +10,9 @@ public class Tile : MonoBehaviour {
     [SerializeField] private Transform highlightTransform;
     [SerializeField] private Transform randomVisualHolder;
     [SerializeField] private MeshRenderer tileBaseRenderer;
+    [Space]
+    [SerializeField, ColorUsage(true, true)] private Color defaultEmissionColor;
+    [SerializeField, ColorUsage(true, true)] private Color highlightEmissionColor;
 
     [Header("Flip")]
     [SerializeField] private float flipDuration = 0.3f;
@@ -57,13 +60,13 @@ public class Tile : MonoBehaviour {
     public void Highlight() {
         highlightTransform.DOKill();
         highlightTransform.DOLocalMoveY(0.1f, highlightInDuration);
-        TweenTileBaseEmission(Color.red, highlightInDuration);
+        TweenTileBaseEmission(highlightEmissionColor, highlightInDuration);
     }
 
     public void UnHighlight() {
         highlightTransform.DOKill();
         highlightTransform.DOLocalMoveY(0f, highlightOutDuration);
-        TweenTileBaseEmission(Color.green, highlightOutDuration);
+        TweenTileBaseEmission(defaultEmissionColor, highlightOutDuration);
     }
 
     private void TweenTileBaseEmission(Color color, float duration) {
