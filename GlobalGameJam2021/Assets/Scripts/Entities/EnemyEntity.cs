@@ -10,4 +10,9 @@ public class EnemyEntity : Entity {
         transform.SetParent(tile.EntityHolder);
         tile.AddEntity(this);
     }
+
+    public void ExecuteAction()
+    {
+
+    }
 }

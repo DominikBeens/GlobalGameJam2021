@@ -7,6 +7,7 @@ public class BoardManager : Singleton<BoardManager>
     public List<Level> Level = new List<Level>();
     [SerializeField] private GameObject tile;
     private PlayerEntity myPlayerEntity;
+    public List<EnemyEntity> enimiesOnBoard = new List<EnemyEntity>();
     private Tile[,] board;
 
     protected override void Awake()
@@ -50,6 +51,11 @@ public class BoardManager : Singleton<BoardManager>
             int tilePlaceX = Mathf.RoundToInt(currentEntities[i].position.x);
             int tilePlaceY = Mathf.RoundToInt(currentEntities[i].position.z);
             Entity newEntity = Instantiate(currentEntities[i].MyEntity, currentEntities[i].position, currentEntities[i].MyEntity.transform.rotation, board[tilePlaceX, tilePlaceY].EntityHolder).GetComponent<Entity>();
+
+            if (newEntity is EnemyEntity newEnemy)
+            {
+                enimiesOnBoard.Add(newEnemy);
+            }
 
             board[tilePlaceX, tilePlaceY].AddEntity(newEntity);
 
@@ -111,9 +117,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         List<Tile> newTiles = new List<Tile>();
 
-        List<Tile> directionTiles = new List<Tile>();
-
-        directionTiles = SelectDirection(toCheck.North, newEntity.gameObject.transform.position, newEntity.North.position);
+        List<Tile> directionTiles = SelectDirection(toCheck.North, newEntity.gameObject.transform.position, newEntity.North.position);
         for (int i = 0; i < directionTiles.Count; i++)
         {
             if (directionTiles[i] != null)
@@ -251,11 +255,6 @@ public class BoardManager : Singleton<BoardManager>
         MoveEntity(moveToTile, myPlayerEntity);
     }
 
-    public void EntityRange(MoveActionData moveData, Vector3 entityPos)
-    {
-
-    }
-
 
     private Entity toMove;
     private Tile moveToTile;
@@ -264,12 +263,23 @@ public class BoardManager : Singleton<BoardManager>
     {
         yield return StartCoroutine(FlipBoardIE());
         yield return new WaitForSeconds(0.5f);
+    }
 
+    public IEnumerator PlayBoardActions()
+    {
         if (toMove != null && moveToTile != null)
         {
             toMove.MoveToTile(moveToTile);
             toMove = null;
             moveToTile = null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        foreach (EnemyEntity enemy in enimiesOnBoard)
+        {
+            enemy.ExecuteAction();
+            yield return new WaitForSeconds(Random.Range(0.2f,0.5f));
         }
     }
 
