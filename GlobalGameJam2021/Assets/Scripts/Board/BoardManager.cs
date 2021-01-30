@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardManager : Singleton<BoardManager>
 {
-    public List<EntityPlacement> Level = new List<EntityPlacement>();
+    public List<Level> Level = new List<Level>();
     [SerializeField] private GameObject tile;
     private PlayerEntity myPlayerEntity;
     private Tile[,] board;
@@ -21,20 +21,23 @@ public class BoardManager : Singleton<BoardManager>
         {
             FlipBoard();
         }
-        if (Input.GetKeyDown(KeyCode.R)) 
+        if (Input.GetKeyDown(KeyCode.R))
         {
             myPlayerEntity.MoveToTile(GetTile(myPlayerEntity.transform.position));
         }
     }
 
-    public void BuildLevel(int sizeX, int sizeZ, List<EntityPlacement> entitiesToPlace)
+    public void BuildLevel(int levelToLoad)
     {
-        GameObject tileHolder = Instantiate(new GameObject("[Tile Holder]"));
+        Level currentLevel = Level[levelToLoad];
+        List<EntityPlacement> currentEntities = currentLevel.entities;
 
-        board = new Tile[sizeX, sizeZ];
-        for (int x = 0; x < sizeX; x++)
+        GameObject tileHolder = new GameObject("[Tile Holder]");
+
+        board = new Tile[currentLevel.sizeX, currentLevel.sizeY];
+        for (int x = 0; x < currentLevel.sizeX; x++)
         {
-            for (int z = 0; z < sizeZ; z++)
+            for (int z = 0; z < currentLevel.sizeY; z++)
             {
                 board[x, z] = Instantiate(tile, tileHolder.transform).GetComponent<Tile>();
                 board[x, z].gameObject.transform.position = new Vector3(x, 0, z);
@@ -42,11 +45,11 @@ public class BoardManager : Singleton<BoardManager>
         }
 
 
-        for (int i = 0; i < entitiesToPlace.Count; i++)
+        for (int i = 0; i < currentEntities.Count; i++)
         {
-            int tilePlaceX = Mathf.RoundToInt(entitiesToPlace[i].position.x);
-            int tilePlaceY = Mathf.RoundToInt(entitiesToPlace[i].position.z);
-            Entity newEntity = Instantiate(entitiesToPlace[i].MyEntity, entitiesToPlace[i].position, entitiesToPlace[i].MyEntity.transform.rotation, board[tilePlaceX, tilePlaceY].EntityHolder).GetComponent<Entity>();
+            int tilePlaceX = Mathf.RoundToInt(currentEntities[i].position.x);
+            int tilePlaceY = Mathf.RoundToInt(currentEntities[i].position.z);
+            Entity newEntity = Instantiate(currentEntities[i].MyEntity, currentEntities[i].position, currentEntities[i].MyEntity.transform.rotation, board[tilePlaceX, tilePlaceY].EntityHolder).GetComponent<Entity>();
 
             board[tilePlaceX, tilePlaceY].AddEntity(newEntity);
 
@@ -146,7 +149,17 @@ public class BoardManager : Singleton<BoardManager>
 
     public Tile GetTile(Vector3 getTilePos)
     {
-        return board[Mathf.RoundToInt(getTilePos.x), Mathf.RoundToInt(getTilePos.z)];
+        int xPos = Mathf.RoundToInt(getTilePos.x);
+        int yPos = Mathf.RoundToInt(getTilePos.z);
+
+        if (xPos >= 0 && xPos < board.GetLength(0) && yPos >= 0 && yPos < board.GetLength(1))
+        {
+            return board[xPos, yPos];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public void MovePlayer(Tile moveToTile)
@@ -165,7 +178,7 @@ public class BoardManager : Singleton<BoardManager>
     public IEnumerator FlipActions()
     {
         yield return StartCoroutine(FlipBoardIE());
-        yield return new WaitForSeconds (0.5f);
+        yield return new WaitForSeconds(0.5f);
 
         if (toMove != null && moveToTile != null)
         {
@@ -189,11 +202,4 @@ public class BoardManager : Singleton<BoardManager>
             return false;
         }
     }
-}
-
-[System.Serializable]
-public struct EntityPlacement
-{
-    public Vector3 position;
-    public GameObject MyEntity;
 }
