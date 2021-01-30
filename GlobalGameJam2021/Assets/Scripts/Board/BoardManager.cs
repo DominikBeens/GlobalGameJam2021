@@ -61,8 +61,7 @@ public class BoardManager : Singleton<BoardManager>
 
     public void FlipBoard()
     {
-        StartCoroutine(FlipBoardIE());
-        FlipActions();
+        StartCoroutine(FlipActions());
     }
 
     private IEnumerator FlipBoardIE()
@@ -159,31 +158,32 @@ public class BoardManager : Singleton<BoardManager>
     private Entity toMove;
     private Tile moveToTile;
 
-    public void FlipActions()
+    public IEnumerator FlipActions()
     {
+        yield return StartCoroutine(FlipBoardIE());
+        yield return new WaitForSeconds (0.5f);
+
         if (toMove != null && moveToTile != null)
         {
-            Debug.LogError("MoveVisual");
             toMove.MoveToTile(moveToTile);
+            toMove = null;
+            moveToTile = null;
         }
     }
 
     public bool MoveEntity(Tile newMoveToTile, Entity newToMove)
     {
-        toMove = newToMove;
-        moveToTile = newMoveToTile;
 
         if (newMoveToTile.myEntity == null)
         {
+            toMove = newToMove;
+            moveToTile = newMoveToTile;
             return true;
         }
         else
         {
             return false;
         }
-
-        /*toMove.gameObject.transform.SetParent(moveToTile.gameObject.transform);
-        toMove.transform.position = moveToTile.transform.position;*/
     }
 }
 
