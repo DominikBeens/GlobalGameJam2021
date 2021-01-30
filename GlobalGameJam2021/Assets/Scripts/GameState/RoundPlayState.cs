@@ -29,7 +29,8 @@ public class RoundPlayState : MonoState {
 
     public override void Tick() { }
 
-    private void OnAbilitySelectedHandler() {
+    private void OnAbilitySelectedHandler(PlayerAbilityManager.AbilityType abilityType) {
+        if (abilityType == PlayerAbilityManager.AbilityType.Flare) { return; }
         StateMachine.EnterState<RoundWatchState>();
     }
 }

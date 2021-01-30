@@ -4,7 +4,7 @@ using System;
 
 public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
 
-    public event Action OnAbilitySelected = delegate { };
+    public event Action<AbilityType> OnAbilitySelected = delegate { };
 
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private CanvasGroup buttonCanvasGroup;
@@ -104,7 +104,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
                         //BoardManager.Instance.UseFlare(selectedTile);
                         break;
                 }
-                OnAbilitySelected();
+                OnAbilitySelected(tileSelectionMode);
                 tileSelectionMode = AbilityType.Undefined;
                 DeselectTile();
             }
