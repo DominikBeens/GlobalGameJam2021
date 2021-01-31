@@ -56,19 +56,19 @@ public class Tile : MonoBehaviour {
         tileBasePropertyBlock = new MaterialPropertyBlock();
         tileBaseRenderer.SetPropertyBlock(tileBasePropertyBlock);
 
-        playerIndicator.localScale = Vector3.zero;
+        playerIndicator.gameObject.SetActive(false);
     }
 
     public void AddEntity(Entity entity) {
         Entity = entity;
         if (entity is PlayerEntity) {
-            playerIndicator.DOScale(1f, 0.1f);
+            playerIndicator.gameObject.SetActive(true);
         }
     }
 
     public void RemoveEntity() {
         if (Entity && Entity is PlayerEntity) {
-            playerIndicator.DOScale(0f, 0.1f);
+            playerIndicator.gameObject.SetActive(false);
         }
         Entity = null;
     }
@@ -86,7 +86,8 @@ public class Tile : MonoBehaviour {
         rotationTransform.DOKill(true);
         rotationTransform.DOLocalRotate(rotation, flipDuration, RotateMode.LocalAxisAdd).SetEase(Ease.OutBack);
 
-        EntityHolder.DOScaleY(isFlipped ? 0f : 1f, flipDuration / 6).SetDelay(isFlipped ? flipDuration / 4 : 0f);
+        entityHolder.DOScaleY(isFlipped ? 0f : 1f, flipDuration / 6).SetDelay(isFlipped ? flipDuration / 4 : 0f);
+        playerIndicator.DOScaleY(isFlipped ? 1f : 0f, flipDuration / 6).SetDelay(isFlipped ? 0f : flipDuration / 4);
     }
 
     public void Hover() {
