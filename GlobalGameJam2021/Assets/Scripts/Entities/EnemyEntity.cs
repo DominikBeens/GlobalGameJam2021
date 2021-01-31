@@ -7,6 +7,8 @@ public class EnemyEntity : Entity
 {
     [SerializeField] protected float rotateDuration = 0.4f;
     [SerializeField] protected Ease turnEase;
+    [Space]
+    [SerializeField, Range(0f, 1f)] private float standChance = 0.25f;
 
     public void ExecuteAction()
     {
@@ -25,6 +27,11 @@ public class EnemyEntity : Entity
                 ProjectileManager.Instance.SendBom(tile.Entity);
                 return;
             }
+        }
+
+        if (Random.value < standChance) {
+            // Stand still and do nothing.
+            return;
         }
 
         int randomInt = Random.Range(0, 2);
