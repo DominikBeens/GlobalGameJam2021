@@ -358,6 +358,7 @@ public class BoardManager : Singleton<BoardManager>
 
     public void UseFlare(Tile usedOn)
     {
+        DeSelectSpots();
         StartCoroutine(FlareRoutine(usedOn));
     }
 

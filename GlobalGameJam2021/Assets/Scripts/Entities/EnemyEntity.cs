@@ -86,5 +86,6 @@ public class EnemyEntity : Entity
 
         rotateTo.transform.LookAt(targetPostition);
         transform.DORotate(rotateTo.transform.eulerAngles, rotateDuration).SetEase(turnEase);
+        Destroy(rotateTo);
     }
 }
