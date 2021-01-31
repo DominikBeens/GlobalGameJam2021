@@ -49,6 +49,7 @@ public class ProjectileManager : Singleton<ProjectileManager> {
 
     private void BounceTiles(List<Tile> tiles, float strength, float delay = 0f) {
         foreach (Tile tile in tiles) {
+            if (!tile) { continue; }
             BounceTile(tile, strength, delay);
         }
     }
