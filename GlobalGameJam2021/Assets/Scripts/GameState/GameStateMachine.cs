@@ -31,9 +31,8 @@ public class GameStateMachine : MonoStateMachine {
     public void ToggleGameCanvas(bool state, float transitionDuration) {
         ToggleCanvas(gameCanvasGroup, state, transitionDuration);
 #if !UNITY_EDITOR
-
-#endif
         restartButton.gameObject.SetActive(false);
+#endif
     }
 
     public void ToggleGameEndCanvas(bool state, float transitionDuration) {

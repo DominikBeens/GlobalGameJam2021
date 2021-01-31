@@ -509,6 +509,7 @@ MonoBehaviour:
   clickScaleDuration: 0.2
   cooldownOverlay: {fileID: 6749193069322183550}
   cooldownText: {fileID: 4496164505000471098}
+  clickAudio: {fileID: 8300000, guid: 534d4eb20fa1864418d3a7b14dc62481, type: 3}
 --- !u!1 &8503755153775807314
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,8 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Collections;
+using DB.SimpleFramework.SimpleAudioManager;
+using Random = UnityEngine.Random;
 
 public class Tile : MonoBehaviour {
 
@@ -18,6 +20,8 @@ public class Tile : MonoBehaviour {
     [SerializeField, ColorUsage(true, true)] private Color defaultEmissionColor;
     [SerializeField, ColorUsage(true, true)] private Color highlightEmissionColor;
     [SerializeField, ColorUsage(true, true)] private Color lethalEmissionColor;
+    [Space]
+    [SerializeField] private AudioClip hoverAudio;
 
     [Header("Flip")]
     [SerializeField] private float flipDuration = 0.3f;
@@ -93,6 +97,7 @@ public class Tile : MonoBehaviour {
     public void Hover() {
         hoverTransform.DOKill();
         hoverTransform.DOLocalMoveY(0.1f, hoverInDuration);
+        SimpleAudioManager.Play2D(hoverAudio, 0.5f, Random.Range(0.95f, 1.05f));
     }
 
     public void UnHover() {
