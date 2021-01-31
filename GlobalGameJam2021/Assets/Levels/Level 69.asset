@@ -105,7 +105,7 @@ MonoBehaviour:
       type: 3}
   sizeX: 10
   sizeY: 10
-  levelName: Putins Fantisy
+  levelName: Putins Fantasy
   flareCooldown: 3
   isTutorial: 0
   cameraYOffset: 0
