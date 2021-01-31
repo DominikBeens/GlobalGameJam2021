@@ -17,6 +17,7 @@ public class BoardManager : Singleton<BoardManager>
         DontDestroyOnLoad(gameObject);
     }
 
+#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -28,6 +29,7 @@ public class BoardManager : Singleton<BoardManager>
             myPlayerEntity.MoveToTile(GetTile(myPlayerEntity.transform.position));
         }
     }
+#endif
 
     public void SetCurrentLevel(int level) {
         currentLevel = Level[level];
@@ -340,10 +342,15 @@ public class BoardManager : Singleton<BoardManager>
 
         yield return new WaitForSeconds(0.5f);
 
+        float maxEnemyActionDuration = Mathf.Max(1f, Mathf.RoundToInt((float)enemiesOnBoard.Count / 15f));
+        float maxEnemyWait = maxEnemyActionDuration / enemiesOnBoard.Count;
+
         for (int i = enemiesOnBoard.Count - 1; i >= 0; i--)
         {
             enemiesOnBoard[i].ExecuteAction();
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            if (maxEnemyWait > 0) {
+                yield return new WaitForSeconds(maxEnemyWait);
+            }
         }
         if (enemiesOnBoard.Count <= 0)
         {
