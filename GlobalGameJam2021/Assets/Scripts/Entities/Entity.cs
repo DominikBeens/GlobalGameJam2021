@@ -5,6 +5,7 @@ public abstract class Entity : MonoBehaviour {
 
     [SerializeField] protected TileActionData moveActionData;
     [SerializeField] protected TileActionData attackActionData;
+    [SerializeField] protected TileActionData rotateActionData;
     [Space]
     [SerializeField] protected GameObject visual;
     [Space]
@@ -27,6 +28,7 @@ public abstract class Entity : MonoBehaviour {
 
     public TileActionData MoveActionData => moveActionData;
     public TileActionData AttackActionData => attackActionData;
+    public TileActionData RotateActionData => rotateActionData;
 
     public virtual void MoveToTile(Tile tile) {
         Tile currentTile = BoardManager.Instance.GetTile(transform.position);

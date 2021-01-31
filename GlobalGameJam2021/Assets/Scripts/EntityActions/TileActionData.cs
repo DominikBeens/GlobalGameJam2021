@@ -14,4 +14,6 @@ public class TileActionData : EntityActionData {
     [Min(0)] public int SouthEast;
     [Min(0)] public int SouthWest;
     [Min(0)] public int NorthWest;
+
+    public bool canUse = true;
 }

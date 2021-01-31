@@ -20,3 +20,4 @@ MonoBehaviour:
   SouthEast: 1
   SouthWest: 1
   NorthWest: 1
+  canUse: 1

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveActionData: {fileID: 11400000, guid: 52dabfddee6ca6a42aa13a3feeef28c8, type: 2}
   attackActionData: {fileID: 11400000, guid: 1241c99a54ffffd41b91223b87c8974e, type: 2}
+  rotateActionData: {fileID: 11400000, guid: e103bf523913d9d47bd54532aa8d73fd, type: 2}
   visual: {fileID: 3042200504121750775}
   North: {fileID: 1740400684399346278}
   East: {fileID: 1710263023350811611}
@@ -25,11 +26,10 @@ MonoBehaviour:
   NorthWest: {fileID: 1403588678277292120}
   jumpHeight: 1.5
   jumpDuration: 0.4
-  bomFallDuration: 1
   jumpEase: 2
-  bomEase: 5
-  bom: {fileID: 7030292988817941294, guid: 3e9f0d3a91d51ce448ae94dc3ad0bb57, type: 3}
   isDestroyed: 0
+  rotateDuration: 1
+  turnEase: 18
 --- !u!1001 &6695661669591402905
 PrefabInstance:
   m_ObjectHideFlags: 0
