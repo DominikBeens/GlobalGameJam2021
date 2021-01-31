@@ -29,9 +29,12 @@ public class BoardManager : Singleton<BoardManager>
         }
     }
 
-    public void BuildLevel(int levelToLoad)
+    public void SetCurrentLevel(int level) {
+        currentLevel = Level[level];
+    }
+
+    public void BuildLevel()
     {
-        currentLevel = Level[levelToLoad];
         List<EntityPlacement> currentEntities = currentLevel.entities;
 
         GameObject tileHolder = new GameObject("[Tile Holder]");

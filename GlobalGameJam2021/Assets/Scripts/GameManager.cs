@@ -31,9 +31,10 @@ public class GameManager : Singleton<GameManager> {
 
     private IEnumerator LoadLevelRoutine(int level) {
         currentLevel = level;
+        BoardManager.Instance.SetCurrentLevel(level);
         yield return LoadSceneRoutine(gameScene);
         Camera = Camera.main;
-        BoardManager.Instance.BuildLevel(level);
+        BoardManager.Instance.BuildLevel();
     }
 
     private IEnumerator LoadSceneRoutine(string sceneName) {

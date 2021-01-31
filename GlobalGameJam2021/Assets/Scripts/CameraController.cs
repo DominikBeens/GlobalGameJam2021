@@ -17,6 +17,8 @@ public class CameraController : MonoBehaviour {
         mainCamera = GetComponentInChildren<Camera>();
         virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         cameraOffset = virtualCamera.GetComponent<CinemachineCameraOffset>();
+
+        transform.position += Vector3.up * BoardManager.Instance.currentLevel.cameraYOffset;
     }
 
     private void Update() {

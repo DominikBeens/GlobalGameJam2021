@@ -23,3 +23,5 @@ MonoBehaviour:
   sizeY: 4
   levelName: Tower Tutorial
   flareCooldown: 3
+  isTutorial: 1
+  cameraYOffset: -2

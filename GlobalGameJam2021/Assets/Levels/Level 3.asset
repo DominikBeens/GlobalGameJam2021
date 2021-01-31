@@ -26,3 +26,5 @@ MonoBehaviour:
   sizeY: 10
   levelName: Dome Tutorial
   flareCooldown: 3
+  isTutorial: 1
+  cameraYOffset: -2

@@ -26,3 +26,5 @@ MonoBehaviour:
   sizeY: 3
   levelName: Walker Tutorial
   flareCooldown: 3
+  isTutorial: 1
+  cameraYOffset: -2

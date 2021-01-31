@@ -10,6 +10,7 @@ public class Level : ScriptableObject
     public string levelName;
     public int flareCooldown;
     public bool isTutorial;
+    public float cameraYOffset;
 }
 
 [System.Serializable]
