@@ -41,6 +41,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 515709061267871607, guid: 776c8ecc89082d6458a9bd8de0f3d232,
         type: 3}
+      propertyPath: ShapeModule.angle
+      value: 8.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 515709061267871607, guid: 776c8ecc89082d6458a9bd8de0f3d232,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 515709061267871607, guid: 776c8ecc89082d6458a9bd8de0f3d232,
+        type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -144,6 +154,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9069784747344889487, guid: 776c8ecc89082d6458a9bd8de0f3d232,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 776c8ecc89082d6458a9bd8de0f3d232, type: 3}
 --- !u!4 &4051113372386908906 stripped
