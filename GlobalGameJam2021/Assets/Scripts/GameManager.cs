@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using DB.SimpleFramework.SimpleAudioManager;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -21,6 +22,7 @@ public class GameManager : Singleton<GameManager> {
     }
 
     private IEnumerator Initialize() {
+        SimpleAudioManager.Initialize();
         yield return new WaitForSeconds(0.1f);
         yield return LoadMenuRoutine();
     }
