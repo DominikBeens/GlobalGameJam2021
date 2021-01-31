@@ -9,6 +9,7 @@ public class Level : ScriptableObject
     public int sizeX;
     public int sizeY;
     public string levelName;
+    public int flareCooldown;
 }
 
 [System.Serializable]

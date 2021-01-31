@@ -27,29 +27,32 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
-
-        moveButton.Initialize(AbilityType.Move, OnMoveButtonClicked);
-        attackButton.Initialize(AbilityType.Attack, OnAttackButtonClicked);
-        flareButton.Initialize(AbilityType.Flare, OnFlareButtonClicked);
     }
 
     private void OnDestroy() {
-        moveButton.Deinitialize();
-        attackButton.Deinitialize();
-        flareButton.Deinitialize();
+        Deinitialize();
     }
 
     private void Update() {
         HandleTileSelection();
     }
 
-    public void Initialize(bool canUseFlare) {
+    public void Initialize() {
         ToggleCanvas(true, 0.2f);
-        flareButton.gameObject.SetActive(canUseFlare);
+
+        //flareButton.gameObject.SetActive(canUseFlare);
+
+        moveButton.Initialize(AbilityType.Move, OnMoveButtonClicked);
+        attackButton.Initialize(AbilityType.Attack, OnAttackButtonClicked);
+        flareButton.Initialize(AbilityType.Flare, OnFlareButtonClicked);
     }
 
     public void Deinitialize() {
         ToggleCanvas(false, 0.1f);
+
+        moveButton.Deinitialize();
+        attackButton.Deinitialize();
+        flareButton.Deinitialize();
     }
 
     private void ToggleCanvas(bool state, float duration) {
