@@ -25,3 +25,4 @@ MonoBehaviour:
   sizeX: 10
   sizeY: 10
   levelName: Level 1
+  flareCooldown: 3

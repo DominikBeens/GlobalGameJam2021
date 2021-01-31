@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class GameStateMachine : MonoStateMachine {
@@ -7,10 +8,21 @@ public class GameStateMachine : MonoStateMachine {
 
     [SerializeField] private CanvasGroup gameCanvasGroup;
     [SerializeField] private CanvasGroup gameEndCanvasGroup;
+    [Space]
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button menuButton;
 
     protected override void Awake() {
         Instance = this;
         base.Awake();
+
+        restartButton.onClick.AddListener(OnRestartButtonClicked);
+        menuButton.onClick.AddListener(OnMenuButtonClicked);
+    }
+
+    private void OnDestroy() {
+        restartButton.onClick.RemoveListener(OnRestartButtonClicked);
+        menuButton.onClick.RemoveListener(OnMenuButtonClicked);
     }
 
     public void ToggleGameCanvas(bool state, float transitionDuration) {
@@ -25,5 +37,14 @@ public class GameStateMachine : MonoStateMachine {
         canvasGroup.DOFade(state ? 1f : 0f, transitionDuration);
         canvasGroup.interactable = state;
         canvasGroup.blocksRaycasts = state;
+    }
+
+    private void OnRestartButtonClicked() {
+        GameManager.Instance.RestartLevel();
+    }
+
+    private void OnMenuButtonClicked() {
+        PlayerAbilityManager.Instance.Deinitialize();
+        GameManager.Instance.LoadMenu();
     }
 }

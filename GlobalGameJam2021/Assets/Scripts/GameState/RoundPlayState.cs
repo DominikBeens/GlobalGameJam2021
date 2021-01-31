@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using TMPro;
+using System;
 
 public class RoundPlayState : MonoState {
+
+    public event Action OnRoundIncreased = delegate { };
 
     [SerializeField] private TextMeshProUGUI roundText;
 
@@ -17,6 +20,7 @@ public class RoundPlayState : MonoState {
     public override void Enter(params object[] data) {
         round++;
         roundTextAnimator.ShowText($"Round {round}");
+        OnRoundIncreased();
 
         BoardManager.Instance.FlipBoard(2);
         PlayerAbilityManager.Instance.ToggleButtonInteractability(true);

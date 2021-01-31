@@ -14,7 +14,7 @@ public class GameStartState : MonoState {
         GameStateMachine.Instance.ToggleGameCanvas(true, 0.4f);
         GameStateMachine.Instance.ToggleGameEndCanvas(false, 0f);
 
-        PlayerAbilityManager.Instance.Initialize(true);
+        PlayerAbilityManager.Instance.Initialize();
         PlayerAbilityManager.Instance.ToggleButtonInteractability(false);
 
         yield return new WaitForSeconds(1f);
