@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Tile : MonoBehaviour {
 
@@ -16,6 +17,7 @@ public class Tile : MonoBehaviour {
     [Space]
     [SerializeField, ColorUsage(true, true)] private Color defaultEmissionColor;
     [SerializeField, ColorUsage(true, true)] private Color highlightEmissionColor;
+    [SerializeField, ColorUsage(true, true)] private Color lethalEmissionColor;
 
     [Header("Flip")]
     [SerializeField] private float flipDuration = 0.3f;
@@ -35,6 +37,7 @@ public class Tile : MonoBehaviour {
     private bool isFlipped = false;
     private MaterialPropertyBlock tileBasePropertyBlock;
     private Tween highlightTween;
+    private Coroutine flashRoutine;
 
     public bool IsHighlighted { get; private set; }
     public Entity Entity { get; private set; }
@@ -108,6 +111,28 @@ public class Tile : MonoBehaviour {
         highlightTransform.DOKill();
         highlightTransform.DOLocalMoveY(0f, highlightOutDuration);
         TweenTileBaseEmission(defaultEmissionColor, highlightOutDuration);
+    }
+
+    public void FlashLethal() {
+        Flash(lethalEmissionColor, 0.2f, 0.8f);
+    }
+
+    private void Flash(Color color, float duration, float pause, float delay = 0f) {
+        if (flashRoutine != null) {
+            StopCoroutine(flashRoutine);
+        }
+        flashRoutine = StartCoroutine(FlashRoutine(color, duration, pause, delay));
+    }
+
+    private IEnumerator FlashRoutine(Color color, float duration, float pause, float delay) {
+        if (delay > 0) {
+            yield return new WaitForSeconds(delay);
+        }
+        TweenTileBaseEmission(color, duration);
+        yield return new WaitForSeconds(duration + pause);
+        TweenTileBaseEmission(defaultEmissionColor, duration);
+        yield return new WaitForSeconds(duration);
+        flashRoutine = null;
     }
 
     public void BounceArea() {

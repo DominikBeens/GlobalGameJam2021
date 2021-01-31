@@ -150,6 +150,7 @@ MonoBehaviour:
   tileBaseRenderer: {fileID: 6442211823887072299}
   defaultEmissionColor: {r: 0, g: 1, b: 0.4670732, a: 1}
   highlightEmissionColor: {r: 0, g: 0.12710404, b: 1, a: 1}
+  lethalEmissionColor: {r: 1, g: 0, b: 0.01999569, a: 1}
   flipDuration: 0.5
   hoverInDuration: 0.2
   hoverOutDuration: 0.1

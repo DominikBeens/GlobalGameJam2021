@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Level", menuName = "ScriptableObjects/Level", order = 1)]
@@ -10,6 +9,7 @@ public class Level : ScriptableObject
     public int sizeY;
     public string levelName;
     public int flareCooldown;
+    public bool isTutorial;
 }
 
 [System.Serializable]
