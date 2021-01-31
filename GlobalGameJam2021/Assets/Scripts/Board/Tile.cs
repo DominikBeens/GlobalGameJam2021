@@ -45,7 +45,10 @@ public class Tile : MonoBehaviour {
         foreach (Transform t in randomVisualHolder) {
             t.gameObject.SetActive(false);
         }
-        randomVisualHolder.GetChild(Random.Range(0, randomVisualHolder.childCount)).gameObject.SetActive(true);
+        Transform visual = randomVisualHolder.GetChild(Random.Range(0, randomVisualHolder.childCount));
+        visual.gameObject.SetActive(true);
+        int rotation = Random.Range(0, 4) * 90;
+        visual.localEulerAngles = new Vector3(0, rotation, 0);
 
         tileBasePropertyBlock = new MaterialPropertyBlock();
         tileBaseRenderer.SetPropertyBlock(tileBasePropertyBlock);
@@ -68,12 +71,9 @@ public class Tile : MonoBehaviour {
     }
 
     public void FlipTile(int flipType = 0) {
-        if (flipType == 1 && isFlipped == false)
-        {
+        if (flipType == 1 && isFlipped == false) {
             return;
-        }
-        else if (flipType == 2 && isFlipped == true)
-        {
+        } else if (flipType == 2 && isFlipped == true) {
             return;
         }
 

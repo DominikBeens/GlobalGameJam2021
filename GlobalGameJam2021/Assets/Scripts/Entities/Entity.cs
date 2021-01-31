@@ -6,7 +6,7 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField] protected TileActionData moveActionData;
     [SerializeField] protected TileActionData attackActionData;
     [Space]
-    [SerializeField] private GameObject visual;
+    [SerializeField] protected GameObject visual;
     [Space]
 
     public Transform North;
