@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System;
 using TMPro;
+using DB.SimpleFramework.SimpleAudioManager;
+using Random = UnityEngine.Random;
 
 public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
@@ -25,6 +27,7 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [Space]
     [SerializeField] private GameObject cooldownOverlay;
     [SerializeField] private TextMeshProUGUI cooldownText;
+    [SerializeField] private AudioClip clickAudio;
 
     private Button button;
     private PlayerAbilityManager.AbilityType type;
@@ -55,7 +58,9 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
 
     public void Deinitialize() {
-        button.onClick.RemoveAllListeners();
+        if (button) {
+            button.onClick.RemoveAllListeners();
+        }
         PlayerAbilityManager.Instance.OnAbilitySelected -= OnAbilitySelectedHandler;
         GameStateMachine.Instance.GetState<RoundPlayState>().OnRoundIncreased -= OnRoundIncreasedHandler;
     }
@@ -81,6 +86,7 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (isOnCooldown || isLocked) { return; }
         image.transform.DOKill(true);
         image.transform.DOPunchScale(Vector3.one * clickScaleStrength, clickScaleDuration);
+        SimpleAudioManager.Play2D(clickAudio, 0.5f, Random.Range(0.95f, 1.05f));
     }
 
     private void OnAbilitySelectedHandler(PlayerAbilityManager.AbilityType type) {
