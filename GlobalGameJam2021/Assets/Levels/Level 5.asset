@@ -51,4 +51,4 @@ MonoBehaviour:
   levelName: Mission One
   flareCooldown: 3
   isTutorial: 0
-  cameraYOffset: 0
+  cameraYOffset: -1
