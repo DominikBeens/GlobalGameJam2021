@@ -18,7 +18,7 @@ public class EnemyEntity : Entity {
         foreach (Tile tile in GetAttackTiles()) {
             if (tile.Entity is PlayerEntity) {
                 GameStateMachine.Instance.EnterState<GameEndState>(false);
-                ProjectileManager.Instance.SendBom(tile.Entity);
+                ProjectileManager.Instance.SendBom(tile.Entity,true);
                 return;
             }
         }
@@ -30,7 +30,8 @@ public class EnemyEntity : Entity {
 
         int randomInt = Random.Range(0, 2);
 
-        if (moveActionData.canUse == true && randomInt < 1) {
+        if (rotateActionData.canUse == false || moveActionData.canUse == true && randomInt < 1)
+        {
             MoveMe();
         } else if (rotateActionData.canUse == true && randomInt < 2) {
             RotateMe();

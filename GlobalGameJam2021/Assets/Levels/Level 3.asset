@@ -13,97 +13,16 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   entities:
-  - position: {x: 6, y: 0, z: 3}
+  - position: {x: 4, y: 0, z: 5}
     MyEntity: {fileID: 7122922860483416908, guid: 1354a5cfd0e03b446994dabb65a69f9b,
       type: 3}
   - position: {x: 1, y: 0, z: 1}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 1, y: 0, z: 2}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
+    MyEntity: {fileID: 3277971772883385557, guid: 256f017229d565b478dd827d1d632ad2,
       type: 3}
   - position: {x: 2, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 4, y: 0, z: 5}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 2, y: 0, z: 2}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 6}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 7, y: 0, z: 4}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 6, y: 0, z: 7}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 1}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 7, y: 0, z: 5}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 8, y: 0, z: 8}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 9}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 4}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 8, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 4}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 9, y: 0, z: 9}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 7, y: 0, z: 6}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 5, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
-      type: 3}
-  - position: {x: 4, y: 0, z: 3}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
+    MyEntity: {fileID: 7311442108766509717, guid: 2c9050503c634964e95d017f2e2fe655,
       type: 3}
   sizeX: 10
   sizeY: 10
-  levelName: Putins Fantisy
+  levelName: Dome Tutorial
   flareCooldown: 3

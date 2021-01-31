@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TowerAttackActionData
   m_EditorClassIdentifier: 
   North: 1
-  East: 1
-  South: 1
-  West: 1
+  East: 0
+  South: 0
+  West: 0
   NorthEast: 0
   SouthEast: 0
   SouthWest: 0

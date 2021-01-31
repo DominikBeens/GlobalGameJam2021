@@ -429,6 +429,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a59908ef567676841810c9af34efa8ff, type: 2}
   tile: {fileID: 6258955875518072579, guid: 38ce03c31129ff94092851a8ad908921, type: 3}
   enemiesOnBoard: []
+  currentLevel: {fileID: 0}
 --- !u!4 &756249807
 Transform:
   m_ObjectHideFlags: 0
@@ -1070,7 +1071,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60470b7fc4ac8f439bd015d15f05b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bom: {fileID: 7030292988817941294, guid: 3e9f0d3a91d51ce448ae94dc3ad0bb57, type: 3}
+  bomFriendly: {fileID: 7030292988817941294, guid: d05427b19d316fc4fb06328c1897311d,
+    type: 3}
+  bomEnemy: {fileID: 7030292988817941294, guid: 3e9f0d3a91d51ce448ae94dc3ad0bb57,
+    type: 3}
+  pof: {fileID: 5707137794101050266, guid: c12e188abdbbe4c4fae76ddd59a62695, type: 3}
   bomEase: 5
   bomFallDuration: 1
 --- !u!4 &2089917752
