@@ -7,6 +7,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2331125302139231853, guid: 256f017229d565b478dd827d1d632ad2,
+        type: 3}
+      propertyPath: moveActionData
+      value: 
+      objectReference: {fileID: 11400000, guid: e96c879b38044c24cab9000680859dd2,
+        type: 2}
+    - target: {fileID: 2331125302139231853, guid: 256f017229d565b478dd827d1d632ad2,
+        type: 3}
+      propertyPath: attackActionData
+      value: 
+      objectReference: {fileID: 11400000, guid: 22658655575357d41a736166c9e7f410,
+        type: 2}
+    - target: {fileID: 2331125302139231853, guid: 256f017229d565b478dd827d1d632ad2,
+        type: 3}
+      propertyPath: rotateActionData
+      value: 
+      objectReference: {fileID: 11400000, guid: 941b3adeada425340950bcce4bafc2d7,
+        type: 2}
     - target: {fileID: 3277971772883385557, guid: 256f017229d565b478dd827d1d632ad2,
         type: 3}
       propertyPath: m_Name
