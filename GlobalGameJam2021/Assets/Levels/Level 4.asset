@@ -23,13 +23,13 @@ MonoBehaviour:
     MyEntity: {fileID: 2163863796416474447, guid: 494aa00869c8be74483b2bbcfa32d982,
       type: 3}
   - position: {x: 3, y: 0, z: 4}
-    MyEntity: {fileID: 2163863796416474447, guid: 494aa00869c8be74483b2bbcfa32d982,
+    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
       type: 3}
-  - position: {x: 2, y: 0, z: 1}
+  - position: {x: 1, y: 0, z: 1}
     MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
       type: 3}
   - position: {x: 3, y: 0, z: 2}
-    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
+    MyEntity: {fileID: 2163863796416474447, guid: 494aa00869c8be74483b2bbcfa32d982,
       type: 3}
   - position: {x: 5, y: 0, z: 5}
     MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
@@ -37,11 +37,29 @@ MonoBehaviour:
   - position: {x: 1, y: 0, z: 5}
     MyEntity: {fileID: 2163863796416474447, guid: 17bf45b6cb03a064eb0814578af7db93,
       type: 3}
-  - position: {x: 4, y: 0, z: 5}
+  - position: {x: 2, y: 0, z: 0}
     MyEntity: {fileID: 2163863796416474447, guid: 17bf45b6cb03a064eb0814578af7db93,
       type: 3}
+  - position: {x: 5, y: 0, z: 2}
+    MyEntity: {fileID: 2163863796416474447, guid: 494aa00869c8be74483b2bbcfa32d982,
+      type: 3}
   - position: {x: 0, y: 0, z: 5}
+    MyEntity: {fileID: 2163863796416474447, guid: 494aa00869c8be74483b2bbcfa32d982,
+      type: 3}
+  - position: {x: 4, y: 0, z: 4}
     MyEntity: {fileID: 7311442108766509717, guid: cc47dfb8bacca494484dbf88332db6ca,
+      type: 3}
+  - position: {x: 4, y: 0, z: 2}
+    MyEntity: {fileID: 7311442108766509717, guid: cc47dfb8bacca494484dbf88332db6ca,
+      type: 3}
+  - position: {x: 1, y: 0, z: 3}
+    MyEntity: {fileID: 7311442108766509717, guid: cc47dfb8bacca494484dbf88332db6ca,
+      type: 3}
+  - position: {x: 4, y: 0, z: 1}
+    MyEntity: {fileID: 7311442108766509717, guid: f0258dbd907508b4dae5bd577e7a5031,
+      type: 3}
+  - position: {x: 3, y: 0, z: 0}
+    MyEntity: {fileID: 7311442108766509717, guid: f0258dbd907508b4dae5bd577e7a5031,
       type: 3}
   - position: {x: 0, y: 0, z: 4}
     MyEntity: {fileID: 7311442108766509717, guid: f0258dbd907508b4dae5bd577e7a5031,
