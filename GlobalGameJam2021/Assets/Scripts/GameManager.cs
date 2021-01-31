@@ -9,11 +9,12 @@ public class GameManager : Singleton<GameManager> {
 
     [SerializeField] private string menuScene = "Menu";
     [SerializeField] private string gameScene = "Game";
+    [SerializeField] private AudioClip gameAudio;
 
     private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
     private int currentLevel;
 
-    public Camera Camera;
+    public Camera Camera { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -23,6 +24,7 @@ public class GameManager : Singleton<GameManager> {
 
     private IEnumerator Initialize() {
         SimpleAudioManager.Initialize();
+        SimpleAudioManager.Play2D(gameAudio, 0.3f).SetLoop(true);
         yield return new WaitForSeconds(0.1f);
         yield return LoadMenuRoutine();
     }

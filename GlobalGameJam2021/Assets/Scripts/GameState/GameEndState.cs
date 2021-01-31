@@ -47,9 +47,9 @@ public class GameEndState : MonoState {
 
     private IEnumerator EndRoutine() {
         GameStateMachine.Instance.ToggleGameCanvas(false, 0.1f);
+        PlayerAbilityManager.Instance.Deinitialize();
         yield return new WaitForSeconds(0.5f);
         GameStateMachine.Instance.ToggleGameEndCanvas(true, 1.5f);
-        PlayerAbilityManager.Instance.Deinitialize();
         yield return new WaitForSeconds(1f);
 
         string text = won ? "Victory" : "Game Over";

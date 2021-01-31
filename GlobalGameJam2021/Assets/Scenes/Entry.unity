@@ -379,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuScene: Menu
   gameScene: Game
-  Camera: {fileID: 0}
+  gameAudio: {fileID: 8300000, guid: d609570d0f2a765489b6d31cc8329d8c, type: 3}
 --- !u!4 &469334573
 Transform:
   m_ObjectHideFlags: 0

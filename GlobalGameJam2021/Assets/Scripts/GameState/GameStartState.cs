@@ -17,7 +17,7 @@ public class GameStartState : MonoState {
         PlayerAbilityManager.Instance.Initialize();
         PlayerAbilityManager.Instance.ToggleButtonInteractability(false);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         StateMachine.EnterState<RoundPlayState>();
     }
