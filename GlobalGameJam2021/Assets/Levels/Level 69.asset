@@ -107,3 +107,5 @@ MonoBehaviour:
   sizeY: 10
   levelName: Putins Fantisy
   flareCooldown: 3
+  isTutorial: 0
+  cameraYOffset: 0

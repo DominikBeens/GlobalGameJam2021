@@ -426,6 +426,7 @@ MonoBehaviour:
   Level:
   - {fileID: 11400000, guid: 756679e6ae9366a44ad9eec6e24b4c0d, type: 2}
   - {fileID: 11400000, guid: 95205c597c71c6f499c25eb384fba4c2, type: 2}
+  - {fileID: 11400000, guid: 09e83e6258a6228469cd7d5ddd0f774b, type: 2}
   - {fileID: 11400000, guid: a59908ef567676841810c9af34efa8ff, type: 2}
   tile: {fileID: 6258955875518072579, guid: 38ce03c31129ff94092851a8ad908921, type: 3}
   enemiesOnBoard: []

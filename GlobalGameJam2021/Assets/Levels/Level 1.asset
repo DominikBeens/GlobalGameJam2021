@@ -20,7 +20,7 @@ MonoBehaviour:
     MyEntity: {fileID: 2163863796416474447, guid: 494aa00869c8be74483b2bbcfa32d982,
       type: 3}
   sizeX: 2
-  sizeY: 4
+  sizeY: 5
   levelName: Tower Tutorial
   flareCooldown: 3
   isTutorial: 1
