@@ -44,9 +44,15 @@ public class RoundPlayState : MonoState {
         roundTextAnimator.ShowText($"Round {round}");
         OnRoundIncreased();
 
+        List<Tile> lethalTiles = new List<Tile>();
+        foreach (EnemyEntity enemy in BoardManager.Instance.enemiesOnBoard) {
+            if (!enemy) { continue; }
+            lethalTiles.AddRange(enemy.GetAttackTiles());
+        }
+
         BoardManager.Instance.FlipBoard(2);
 
-        yield return ShowLethalTilesRoutine();
+        yield return ShowLethalTilesRoutine(lethalTiles);
         yield return new WaitForSeconds(0.5f);
 
         PlayerAbilityManager.Instance.ToggleButtonInteractability(true);
@@ -55,15 +61,11 @@ public class RoundPlayState : MonoState {
         enterRoutine = null;
     }
 
-    private IEnumerator ShowLethalTilesRoutine() {
+    private IEnumerator ShowLethalTilesRoutine(List<Tile> lethalTiles) {
         if (!BoardManager.Instance.currentLevel.isTutorial) { yield break; }
 
         yield return new WaitForSeconds(1f);
 
-        List<Tile> lethalTiles = new List<Tile>();
-        foreach (EnemyEntity enemy in BoardManager.Instance.enemiesOnBoard) {
-            lethalTiles.AddRange(enemy.GetAttackTiles());
-        }
         foreach (Tile tile in lethalTiles) {
             tile.FlashLethal();
         }
