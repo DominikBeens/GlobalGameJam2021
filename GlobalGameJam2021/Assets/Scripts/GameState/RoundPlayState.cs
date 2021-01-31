@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class RoundPlayState : MonoState {
 
-    public event Action OnRoundIncreased = delegate { };
+    public event Action<int> OnRoundIncreased = delegate { };
 
     [SerializeField] private TextMeshProUGUI roundText;
 
@@ -42,7 +42,7 @@ public class RoundPlayState : MonoState {
     private IEnumerator EnterRoutine() {
         round++;
         roundTextAnimator.ShowText($"Round {round}");
-        OnRoundIncreased();
+        OnRoundIncreased(round);
 
         List<Tile> lethalTiles = new List<Tile>();
         foreach (EnemyEntity enemy in BoardManager.Instance.enemiesOnBoard) {

@@ -62,7 +62,7 @@ public class PlayerAbilityManager : Singleton<PlayerAbilityManager> {
     }
 
     public void ToggleButtonInteractability(bool state) {
-        buttonCanvasGroup.DOFade(state ? 1f : 0.5f, 0.1f);
+        buttonCanvasGroup.DOFade(state ? 1f : 0.3f, 0.1f);
         buttonCanvasGroup.interactable = state;
         buttonCanvasGroup.blocksRaycasts = state;
     }
