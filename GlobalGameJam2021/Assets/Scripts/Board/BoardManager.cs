@@ -9,6 +9,7 @@ public class BoardManager : Singleton<BoardManager>
     private PlayerEntity myPlayerEntity;
     public List<EnemyEntity> enemiesOnBoard = new List<EnemyEntity>();
     private Tile[,] board;
+    public Level currentLevel;
 
     protected override void Awake()
     {
@@ -30,7 +31,7 @@ public class BoardManager : Singleton<BoardManager>
 
     public void BuildLevel(int levelToLoad)
     {
-        Level currentLevel = Level[levelToLoad];
+        currentLevel = Level[levelToLoad];
         List<EntityPlacement> currentEntities = currentLevel.entities;
 
         GameObject tileHolder = new GameObject("[Tile Holder]");
@@ -265,6 +266,14 @@ public class BoardManager : Singleton<BoardManager>
             for (int i = 0; i < range; i++)
             {
                 newTileList.Add(GetTile(new Vector3(startPoint.x + i - Loffset, 0, startPoint.z - offset + 1)));
+            }
+        }
+
+        for (int i = newTileList.Count - 1; i >= 0; i--)
+        {
+            if (newTileList[i] == null)
+            {
+                newTileList.RemoveAt(i);
             }
         }
 
