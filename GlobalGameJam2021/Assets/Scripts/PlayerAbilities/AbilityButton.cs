@@ -93,7 +93,7 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         lockedTimer = LOCKED_DURATION;
     }
 
-    private void OnRoundIncreasedHandler() {
+    private void OnRoundIncreasedHandler(int round) {
         if (isOnCooldown) {
             cooldown--;
             cooldownOverlay.SetActive(isOnCooldown);

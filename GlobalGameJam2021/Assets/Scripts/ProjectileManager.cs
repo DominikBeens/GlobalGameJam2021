@@ -2,15 +2,17 @@
 using UnityEngine;
 using DG.Tweening;
 using System;
+using DB.SimpleFramework.SimpleAudioManager;
 
 public class ProjectileManager : Singleton<ProjectileManager>
 {
 
-    [SerializeField] protected GameObject bomFriendly;
-    [SerializeField] protected GameObject bomEnemy;
-    [SerializeField] protected GameObject pof;
-    [SerializeField] protected Ease bomEase;
-    [SerializeField] protected float bomFallDuration = 1f;
+    [SerializeField] private GameObject bomFriendly;
+    [SerializeField] private GameObject bomEnemy;
+    [SerializeField] private GameObject pof;
+    [SerializeField] private Ease bomEase;
+    [SerializeField] private float bomFallDuration = 1f;
+    [SerializeField] private AudioClip bomAudio;
 
     protected override void Awake()
     {
@@ -49,6 +51,9 @@ public class ProjectileManager : Singleton<ProjectileManager>
         {
             projectile = Instantiate(bomFriendly, tile.transform.position + new Vector3(0, 8, 0), bomFriendly.transform.rotation);
         }
+
+        SimpleAudioManager.Play2D(bomAudio, 0.5f);
+
         projectile.transform.DOMoveY(0, bomFallDuration).SetEase(bomEase).OnComplete(() =>
         {
 

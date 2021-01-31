@@ -1078,6 +1078,7 @@ MonoBehaviour:
   pof: {fileID: 5707137794101050266, guid: c12e188abdbbe4c4fae76ddd59a62695, type: 3}
   bomEase: 5
   bomFallDuration: 1
+  bomAudio: {fileID: 8300000, guid: 14ad8af733e01c54ca70ded17e9fb51e, type: 3}
 --- !u!4 &2089917752
 Transform:
   m_ObjectHideFlags: 0

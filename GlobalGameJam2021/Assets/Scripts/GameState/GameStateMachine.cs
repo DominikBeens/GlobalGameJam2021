@@ -18,15 +18,22 @@ public class GameStateMachine : MonoStateMachine {
 
         restartButton.onClick.AddListener(OnRestartButtonClicked);
         menuButton.onClick.AddListener(OnMenuButtonClicked);
+
+        GetState<RoundPlayState>().OnRoundIncreased += OnRoundIncreasedHandler;
     }
 
     private void OnDestroy() {
         restartButton.onClick.RemoveListener(OnRestartButtonClicked);
         menuButton.onClick.RemoveListener(OnMenuButtonClicked);
+        GetState<RoundPlayState>().OnRoundIncreased -= OnRoundIncreasedHandler;
     }
 
     public void ToggleGameCanvas(bool state, float transitionDuration) {
         ToggleCanvas(gameCanvasGroup, state, transitionDuration);
+#if !UNITY_EDITOR
+
+#endif
+        restartButton.gameObject.SetActive(false);
     }
 
     public void ToggleGameEndCanvas(bool state, float transitionDuration) {
@@ -46,5 +53,11 @@ public class GameStateMachine : MonoStateMachine {
     private void OnMenuButtonClicked() {
         PlayerAbilityManager.Instance.Deinitialize();
         GameManager.Instance.LoadMenu();
+    }
+
+    private void OnRoundIncreasedHandler(int round) {
+        if (round >= 2 && !restartButton.gameObject.activeInHierarchy) {
+            restartButton.gameObject.SetActive(true);
+        }
     }
 }
