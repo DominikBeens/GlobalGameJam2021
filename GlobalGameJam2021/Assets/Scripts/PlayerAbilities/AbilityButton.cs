@@ -7,6 +7,8 @@ using TMPro;
 
 public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
+    private const float LOCKED_DURATION = 2.5f;
+
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI text;
     [Space]
@@ -27,8 +29,10 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Button button;
     private PlayerAbilityManager.AbilityType type;
     private int cooldown;
+    private float lockedTimer;
 
     private bool isOnCooldown => cooldown > 0;
+    private bool isLocked => lockedTimer > 0;
 
     public void Initialize(PlayerAbilityManager.AbilityType type, Action onClick = null) {
         this.type = type;
@@ -36,7 +40,6 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         button = GetComponent<Button>();
         button.onClick.AddListener(() => onClick());
         button.onClick.AddListener(OnButtonClicked);
-        button.interactable = true;
 
         cooldownOverlay.SetActive(false);
         cooldown = 0;
@@ -57,20 +60,25 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         GameStateMachine.Instance.GetState<RoundPlayState>().OnRoundIncreased -= OnRoundIncreasedHandler;
     }
 
+    private void Update() {
+        HandleLockedTimer();
+        HandleButtonInteractability();
+    }
+
     public void OnPointerEnter(PointerEventData eventData) {
-        if (isOnCooldown) { return; }
+        if (isOnCooldown || isLocked) { return; }
         image.transform.DOKill(true);
         image.transform.DOScale(hoverScaleIn, hoverScaleInDuration).SetEase(Ease.OutBack);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        if (isOnCooldown) { return; }
+        if (isOnCooldown || isLocked) { return; }
         image.transform.DOKill(true);
         image.transform.DOScale(1f, hoverScaleOutDuration);
     }
 
     private void OnButtonClicked() {
-        if (isOnCooldown) { return; }
+        if (isOnCooldown || isLocked) { return; }
         image.transform.DOKill(true);
         image.transform.DOPunchScale(Vector3.one * clickScaleStrength, clickScaleDuration);
     }
@@ -80,8 +88,9 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             cooldown = BoardManager.Instance.currentLevel.flareCooldown;
             cooldownOverlay.SetActive(true);
             cooldownText.text = $"{cooldown}";
-            button.interactable = false;
         }
+
+        lockedTimer = LOCKED_DURATION;
     }
 
     private void OnRoundIncreasedHandler() {
@@ -89,7 +98,25 @@ public class AbilityButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             cooldown--;
             cooldownOverlay.SetActive(isOnCooldown);
             cooldownText.text = $"{cooldown}";
-            button.interactable = !isOnCooldown;
+        }
+    }
+
+    private void HandleLockedTimer() {
+        if (isLocked) {
+            lockedTimer -= Time.deltaTime;
+        }
+    }
+
+    private void HandleButtonInteractability() {
+        if (!button) { return; }
+        if (isOnCooldown || isLocked) {
+            if (button.interactable) {
+                button.interactable = false;
+            }
+        } else {
+            if (!button.interactable) {
+                button.interactable = true;
+            }
         }
     }
 }
