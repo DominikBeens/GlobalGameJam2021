@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   entities:
-  - position: {x: 4, y: 0, z: 5}
+  - position: {x: 0, y: 0, z: 0}
     MyEntity: {fileID: 7122922860483416908, guid: 1354a5cfd0e03b446994dabb65a69f9b,
       type: 3}
+  - position: {x: 2, y: 0, z: 2}
+    MyEntity: {fileID: 2163863796416474447, guid: e54745ad7194bb44da5edf15cdf5890a,
+      type: 3}
   - position: {x: 1, y: 0, z: 1}
-    MyEntity: {fileID: 3277971772883385557, guid: 256f017229d565b478dd827d1d632ad2,
+    MyEntity: {fileID: 7311442108766509717, guid: f0258dbd907508b4dae5bd577e7a5031,
       type: 3}
-  - position: {x: 2, y: 0, z: 3}
-    MyEntity: {fileID: 7311442108766509717, guid: 2c9050503c634964e95d017f2e2fe655,
-      type: 3}
-  sizeX: 10
-  sizeY: 10
-  levelName: Level 1
+  sizeX: 3
+  sizeY: 3
+  levelName: Walker Tutorial
   flareCooldown: 3

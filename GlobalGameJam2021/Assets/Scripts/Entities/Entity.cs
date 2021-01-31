@@ -36,7 +36,7 @@ public abstract class Entity : MonoBehaviour {
     }
     protected void GetDestroyed()
     {
-        ProjectileManager.Instance.SendBom(this);
+        ProjectileManager.Instance.SendBom(this,false);
     }
 
 }

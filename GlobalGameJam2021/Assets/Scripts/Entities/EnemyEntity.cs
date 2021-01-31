@@ -24,7 +24,7 @@ public class EnemyEntity : Entity
             if (tile.Entity is PlayerEntity)
             {
                 GameStateMachine.Instance.EnterState<GameEndState>(false);
-                ProjectileManager.Instance.SendBom(tile.Entity);
+                ProjectileManager.Instance.SendBom(tile.Entity,true);
                 return;
             }
         }
@@ -36,7 +36,7 @@ public class EnemyEntity : Entity
 
         int randomInt = Random.Range(0, 2);
 
-        if (moveActionData.canUse == true && randomInt < 1)
+        if (rotateActionData.canUse == false || moveActionData.canUse == true && randomInt < 1)
         {
             MoveMe();
         }
